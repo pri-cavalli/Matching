@@ -29,17 +29,15 @@ export class Mentee extends Participant {
     }
 
     private getFirstInPreferenceListOfOptions(options: Mentor[]): Mentor | null {
-        const greenOptions = options.filter(option => this.votes[option.name] === VoteClassification.Green);
-        if (greenOptions.length > 0) {
-            return this.getOldestMentor(greenOptions);
-        }
-        const yellowOptions = options.filter(option => this.votes[option.name] === VoteClassification.Yellow);
-        if (yellowOptions.length > 0) {
-            return yellowOptions[0];
-        }
-        const redOptions = options.filter(option => this.votes[option.name] === VoteClassification.Red);
-        if (redOptions.length > 0) {
-            return redOptions[0];
+        return this.getOldestMentorOfClassification(options, VoteClassification.Green) || 
+            this.getOldestMentorOfClassification(options, VoteClassification.Yellow) ||
+            this.getOldestMentorOfClassification(options, VoteClassification.Red);
+    }
+
+    private getOldestMentorOfClassification(options: Mentor[], voteClassification: VoteClassification ): Mentor | null {
+        const filteredOptions = options.filter(option => this.votes[option.name] === voteClassification);
+        if (filteredOptions.length > 0) {
+            return this.getOldestMentor(filteredOptions);
         }
         return null;
     }
