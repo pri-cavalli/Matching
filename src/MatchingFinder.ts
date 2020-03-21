@@ -1,6 +1,6 @@
 import * as _ from "lodash";
 import { Participant, Mentor, Mentee } from "./Participant";
-import { VoteClassification } from "./Vote";
+import { getGreaterVoteClassification } from "./Vote";
 
 export interface Pair {
     mentor: Mentor,
@@ -72,16 +72,4 @@ export default class MatchingFinder {
         }
         return bestClassification === menteeClassification1 ? mentee1 : mentee2;
     }
- }
-
- function getGreaterVoteClassification(
-     classification1: VoteClassification,
-     classification2: VoteClassification
- ): VoteClassification | undefined {
-    if (classification1 === classification2) return;
-    if (classification1 === VoteClassification.Green) return classification1;
-    if (classification2 === VoteClassification.Green) return classification2;
-    if (classification1 === VoteClassification.Yellow) return classification1;
-    if (classification2 === VoteClassification.Yellow) return classification2;
-    return;
  }
