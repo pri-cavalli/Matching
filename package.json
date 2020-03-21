@@ -1,0 +1,17 @@
+{
+  "name": "matching-votes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "node dist/Main.js",
+    "build": "tsc --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/lodash": "^4.14.149",
+    "lodash": "^4.17.15",
+    "typescript": "^3.8.3"
+  }
+}
