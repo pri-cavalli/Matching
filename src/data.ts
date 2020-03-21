@@ -31,7 +31,7 @@ const joice = new Mentee(
 );
 const nicolas = new Mentee(
     "nicolas",
-    new Date(2018, 11),
+    new Date(2018, 10),
     { luis: VoteClassification.Green, carol: VoteClassification.Green, priscila: VoteClassification.Red, maiara: VoteClassification.Red }
 );
 const willian = new Mentee(

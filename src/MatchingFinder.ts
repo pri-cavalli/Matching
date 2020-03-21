@@ -21,8 +21,8 @@ export default class MatchingFinder {
 
     public run(): Pair[] {
         while(this.hasAvailableMentee()) {
-            const mentee = this.getAvailableMentees().pop()!; // propriedade 4 do algoritmo
-            const mentor = mentee.getHigherNonProposedMentor(this.mentors)!; // propriedade 4 do algoritmo
+            const mentee = this.getAvailableMentees().pop()!;
+            const mentor = mentee.getHigherNonProposedMentor(this.mentors)!;
 
             if (this.isParticipantFree(mentor)) {
                 this.matching.push({ mentor, mentee});
@@ -58,7 +58,7 @@ export default class MatchingFinder {
     private shouldMentorChangeHisMentee(mentor: Mentor, currentMentee: Mentee, newMentee: Mentee): boolean {
         const favoriteMentee = this.whoMentorPrefer(mentor, currentMentee, newMentee);
         if (!favoriteMentee) {
-            return newMentee.startDate < currentMentee.startDate;
+            return newMentee.startDate.getTime() < currentMentee.startDate.getTime();
         }
         return favoriteMentee !== currentMentee;
     }
@@ -67,7 +67,10 @@ export default class MatchingFinder {
         const menteeClassification1 = mentor.votes[mentee1.name];
         const menteeClassification2 = mentor.votes[mentee2.name];
         const bestClassification = getGreaterVoteClassification(menteeClassification1, menteeClassification2);
-        return bestClassification && bestClassification === menteeClassification1 ? mentee1 : mentee2;
+        if (!bestClassification) {
+            return;
+        }
+        return bestClassification === menteeClassification1 ? mentee1 : mentee2;
     }
  }
 
@@ -75,20 +78,10 @@ export default class MatchingFinder {
      classification1: VoteClassification,
      classification2: VoteClassification
  ): VoteClassification | undefined {
-    if (classification1 === classification2) {
-        return;
-    }
-    if (classification1 === VoteClassification.Green) {
-        return classification1;
-    }
-    if (classification2 === VoteClassification.Green) {
-        return classification2;
-    }
-    if (classification1 === VoteClassification.Yellow) {
-        return classification1;
-    }
-    if (classification2 === VoteClassification.Yellow) {
-        return classification2;
-    }
+    if (classification1 === classification2) return;
+    if (classification1 === VoteClassification.Green) return classification1;
+    if (classification2 === VoteClassification.Green) return classification2;
+    if (classification1 === VoteClassification.Yellow) return classification1;
+    if (classification2 === VoteClassification.Yellow) return classification2;
     return;
  }
