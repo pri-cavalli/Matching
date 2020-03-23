@@ -1,5 +1,6 @@
 import * as _ from "lodash";
 import { VoteClassification, Votes } from "./Vote";
+import { Tiebreaker, TiebreakerReturns } from "./tiebreaker/Tiebreaker";
 
 export enum ParticipantType {
     Mentee = "Mentee",
@@ -8,7 +9,17 @@ export enum ParticipantType {
 
 export abstract class Participant {
     public abstract type: ParticipantType;
+    public tiebreakers: Tiebreaker[] = [];
     constructor(public name: string, public startDate: Date, public votes: Votes) { }
+
+    public whoParticipantPrefer(options: Participant[]): TiebreakerReturns {
+        return this.tiebreakers.reduce((currentOptions: TiebreakerReturns, tiebreaker) => {
+            if (currentOptions && Array.isArray(currentOptions)) {
+                return tiebreaker(currentOptions, this);
+            }
+            return currentOptions;
+        }, options);
+    }
 }
 
 export class Mentor extends Participant {

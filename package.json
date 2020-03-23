@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/Main.js",
     "build": "tsc --watch",
-    "test": "mocha -r ts-node/register test/*.test.ts"
+    "test": "mocha -r ts-node/register test/**/*.test.ts"
   },
   "author": "",
   "license": "ISC",
