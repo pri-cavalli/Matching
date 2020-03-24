@@ -2,6 +2,8 @@ import { expect } from "chai";
 import "mocha";
 import { Participant, Mentor, Mentee } from "../src/Participant";
 import { VoteClassification } from "../src/Vote";
+import { voteClassificationTiebreaker } from "../src/tiebreaker/VoteClassificationTiebreaker";
+import { oldestStartDateTiebreaker } from "../src/tiebreaker/OldestStartDateTiebreaker";
 
 let mentor1: Mentor, mentor2: Mentor, mentor3: Mentor, mentor4: Mentor;
 describe("Participant tests", () => {
@@ -26,6 +28,7 @@ describe("Participant tests", () => {
                     mentor1: VoteClassification.Green 
                 });
                 mentee.proposedMentors = [mentor1];
+                mentee.tiebreakers = [voteClassificationTiebreaker, oldestStartDateTiebreaker];
                 expect(
                     mentee.getHigherNonProposedMentor([mentor1])
                 ).to.be.equal(null);                
@@ -38,6 +41,7 @@ describe("Participant tests", () => {
                     mentor4: VoteClassification.Green
                 });
                 mentee.proposedMentors = [mentor4];
+                mentee.tiebreakers = [voteClassificationTiebreaker, oldestStartDateTiebreaker];
                 expect(
                     mentee.getHigherNonProposedMentor([mentor1, mentor2, mentor3, mentor4])
                 ).to.be.equal(mentor3);                
@@ -50,6 +54,7 @@ describe("Participant tests", () => {
                     mentor4: VoteClassification.Yellow
                 });
                 mentee.proposedMentors = [mentor3, mentor4];
+                mentee.tiebreakers = [voteClassificationTiebreaker, oldestStartDateTiebreaker];
                 expect(
                     mentee.getHigherNonProposedMentor([mentor1, mentor2, mentor3, mentor4])
                 ).to.be.equal(mentor1);                
@@ -73,6 +78,7 @@ describe("Participant tests", () => {
                     mentor3: VoteClassification.Red,
                     mentor4: VoteClassification.Yellow
                 });
+                mentee.tiebreakers = [voteClassificationTiebreaker, oldestStartDateTiebreaker];
                 expect(
                     mentee.getHigherNonProposedMentor([mentor1, mentor2, mentor3, mentor4])
                 ).to.be.equal(mentor1);                
@@ -85,6 +91,7 @@ describe("Participant tests", () => {
                     mentor4: VoteClassification.Green
                 });
                 mentee.proposedMentors = [mentor4];
+                mentee.tiebreakers = [voteClassificationTiebreaker, oldestStartDateTiebreaker];
                 expect(
                     mentee.getHigherNonProposedMentor([mentor1, mentor2, mentor3, mentor4])
                 ).to.be.equal(mentor1);                
@@ -97,6 +104,7 @@ describe("Participant tests", () => {
                     mentor4: VoteClassification.Green
                 });
                 mentee.proposedMentors = [mentor1, mentor4];
+                mentee.tiebreakers = [voteClassificationTiebreaker, oldestStartDateTiebreaker];
                 expect(
                     mentee.getHigherNonProposedMentor([mentor1, mentor2, mentor3, mentor4])
                 ).to.be.equal(mentor2);                

@@ -3,6 +3,8 @@ import "mocha";
 import MatchingFinder from "../src/MatchingFinder";
 import { VoteClassification } from "../src/Vote";
 import { Mentee, Mentor } from "../src/Participant";
+import { voteClassificationTiebreaker } from "../src/tiebreaker/VoteClassificationTiebreaker";
+import { oldestStartDateTiebreaker } from "../src/tiebreaker/OldestStartDateTiebreaker";
 
 export const mentors: Mentor[] = [
   new Mentor(
@@ -53,18 +55,21 @@ describe("MatchingFinder tests", () => {
   describe("run", () => {
     it("should return empty array when don't have mentors and mentees", () => {
       const matchingFinder = new MatchingFinder([], []);
-      expect(matchingFinder.run()).to.be.deep.equals([]);
+      expect(matchingFinder.run()).to.be.deep.equals([[]]);
     });
-    it("should return array with pairs", () => {
+    it.only("should return array with pairs", () => {
       const matchingFinder = new MatchingFinder(mentors, mentees);
-      expect(matchingFinder.run().map(pair => {
-        return [ pair.mentor.name, pair.mentee.name ];
-      })).to.be.deep.equals([                      
+      matchingFinder.setTiebreaksInMentors([voteClassificationTiebreaker, oldestStartDateTiebreaker]);
+      expect(matchingFinder.run().map(
+        matching => matching.map(pair => {
+          return [ pair.mentor.name, pair.mentee.name ];
+        }
+      ))).to.be.deep.equals([[                      
         ['luis', 'nicolas'],   
         ['maiara', 'wagner'],  
         ['carol', 'joice'],    
         ['priscila', 'willian']
-      ]);
+      ]]);
     });
   }); 
 }); 

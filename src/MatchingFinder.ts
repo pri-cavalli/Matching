@@ -1,41 +1,68 @@
 import * as _ from "lodash";
 import { Participant, Mentor, Mentee } from "./Participant";
-import { getGreaterVoteClassification } from "./Vote";
+import { Tiebreaker } from "./tiebreaker/Tiebreaker";
+import { isArray } from "util";
 
 export interface Pair {
     mentor: Mentor,
     mentee: Mentee
 }
 
+export type Matching = Pair[];
+
 export default class MatchingFinder {
-    private matching: Pair[] = [];
+    public currentMatching: Matching = [];
+    private matchings: Matching[] = [];
     constructor(
         private mentors: Mentor[],
         private mentees: Mentee[]
     ) { }
 
-    public displayMatching(): void { 
-        const simplifyPairs = this.matching.map(pair => `(${pair.mentor.name}, ${pair.mentee.name})`);
-        console.log(simplifyPairs);
+    public setTiebreaksInMentors(tiebreaks: Tiebreaker[]): void {
+        this.mentors.forEach((participant: Participant) => {
+            participant.tiebreakers = tiebreaks;
+        });
     }
 
-    public run(): Pair[] {
-        while(this.hasAvailableMentee()) {
+    public setTiebreaksInMentees(tiebreaks: Tiebreaker[]): void {
+        this.mentees.forEach((participant: Participant) => {
+            participant.tiebreakers = tiebreaks;
+        });
+    }
+
+    public run(): Matching[] {
+        let shouldStillRun = true;
+        while(this.hasAvailableMentee() && shouldStillRun) {
             const mentee = this.getAvailableMentees().pop()!;
             const mentor = mentee.getHigherNonProposedMentor(this.mentors)!;
 
-            if (this.isParticipantFree(mentor)) {
-                this.matching.push({ mentor, mentee});
+            if (isArray(mentor)) {
+                mentor.map(m => {
+                    const matchingCopy = this.copyMatchingFinder();
+                    matchingCopy.menteeProposeToMentor(mentee, m);
+                    this.addMatchingsThatRunInParallel(matchingCopy);
+                    shouldStillRun = false;
+                });
             } else {
-                const currentMenteeOfMentor = this.getCurrentMenteeOfMentor(mentor)!;
-                if (this.shouldMentorChangeHisMentee(mentor, currentMenteeOfMentor, mentee)) {
-                    _.remove(this.matching, { mentor, mentee: currentMenteeOfMentor});
-                    this.matching.push({ mentor, mentee});
-                }                
+                this.menteeProposeToMentor(mentee, mentor);
             }
-            mentee.proposedMentors.push(mentor);
         }
-        return this.matching;
+        if (shouldStillRun) {
+            this.matchings.push(this.currentMatching)
+        }
+        return this.matchings;
+    }
+
+    public menteeProposeToMentor(mentee: Mentee, mentor: Mentor): void {
+        mentee.proposedMentors.push(mentor);
+        if (this.isParticipantFree(mentor)) {
+            this.currentMatching.push({ mentor, mentee});
+        } else {
+            const currentMenteeOfMentor = this.getCurrentMenteeOfMentor(mentor)!;
+            if (this.shouldMentorChangeHisMentee(mentor, currentMenteeOfMentor, mentee)) {
+                this.swapMenteesFromMentor(mentor, currentMenteeOfMentor, mentee);
+            }                
+        }
     }
 
     private hasAvailableMentee(): boolean {
@@ -47,29 +74,37 @@ export default class MatchingFinder {
     }
 
     private isParticipantFree(participant: Participant): boolean {
-        return !this.matching.some(pair => pair.mentee === participant || pair.mentor === participant);
+        return !this.currentMatching.some(pair => pair.mentee.name === participant.name || pair.mentor.name === participant.name);
     }
 
     private getCurrentMenteeOfMentor(mentor: Mentor): Mentee | undefined {
-        const pair = this.matching.find(pair => pair.mentor === mentor);
+        const pair = this.currentMatching.find(pair => pair.mentor.name === mentor.name);
         return pair && pair.mentee;
     }
 
     private shouldMentorChangeHisMentee(mentor: Mentor, currentMentee: Mentee, newMentee: Mentee): boolean {
-        const favoriteMentee = this.whoMentorPrefer(mentor, currentMentee, newMentee);
-        if (!favoriteMentee) {
-            return newMentee.startDate.getTime() < currentMentee.startDate.getTime();
+        const favoriteMentee = mentor.whoParticipantPrefer([currentMentee, newMentee]);
+        if (Array.isArray(favoriteMentee)) {
+            const matchingCopy = this.copyMatchingFinder();
+            matchingCopy.swapMenteesFromMentor(mentor, currentMentee, newMentee);
+            this.addMatchingsThatRunInParallel(matchingCopy);
+            return false;
         }
         return favoriteMentee !== currentMentee;
     }
 
-    private whoMentorPrefer(mentor: Mentor, mentee1: Mentee, mentee2: Mentee): Mentee | undefined {
-        const menteeClassification1 = mentor.votes[mentee1.name];
-        const menteeClassification2 = mentor.votes[mentee2.name];
-        const bestClassification = getGreaterVoteClassification(menteeClassification1, menteeClassification2);
-        if (!bestClassification) {
-            return;
-        }
-        return bestClassification === menteeClassification1 ? mentee1 : mentee2;
+    public swapMenteesFromMentor(mentor: Mentor, currentMentee: Mentee, newMentee: Mentee): void {
+        _.remove(this.currentMatching, { mentor, mentee: currentMentee});
+        this.currentMatching.push({ mentor, mentee: newMentee});
+    }
+
+    private copyMatchingFinder(): MatchingFinder {
+        const matchingCopy = new MatchingFinder(_.cloneDeep(this.mentors), _.cloneDeep(this.mentees));
+        matchingCopy.currentMatching = _.cloneDeep(this.currentMatching);
+        return matchingCopy;
+    }
+
+    private addMatchingsThatRunInParallel(matchingCopy: MatchingFinder): void {
+        this.matchings = this.matchings.concat(matchingCopy.run());
     }
  }

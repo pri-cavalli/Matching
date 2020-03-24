@@ -22,7 +22,7 @@ const maiara = new Mentor(
     new Date(2018, 4),
     { joice: VoteClassification.Yellow, nicolas: VoteClassification.Green, willian: VoteClassification.Yellow, wagner: VoteClassification.Green }
 );
-export const mentors: Mentor[] = [ priscila, luis, carol, maiara ];
+export const mentors: Mentor[] = [ luis, carol, maiara, priscila ];
 
 const joice = new Mentee(
     "joice",
@@ -47,5 +47,5 @@ const wagner = new Mentee(
 export const mentees: Mentee[] = [ joice, nicolas, willian, wagner ];
 
 /*
-    resultado final = <luis, nicolas> <carol, joice>
+    resultado final = <luis, nicolas> <carol, joice>, <priscila, wagner>, <maiara, willian>
 */

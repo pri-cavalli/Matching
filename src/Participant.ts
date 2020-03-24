@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { VoteClassification, Votes } from "./Vote";
+import { Votes } from "./Vote";
 import { Tiebreaker, TiebreakerReturns } from "./tiebreaker/Tiebreaker";
 
 export enum ParticipantType {
@@ -30,32 +30,12 @@ export class Mentee extends Participant {
     public type = ParticipantType.Mentee;
     public proposedMentors: Mentor[] = [];
 
-    public getHigherNonProposedMentor(allMentors: Mentor[]): Mentor | null {
-        const nonProposedMentor = this.getNonProposedMentors(allMentors);
-        return this.getFirstInPreferenceListOfOptions(nonProposedMentor);
+    public getHigherNonProposedMentor(allMentors: Mentor[]): Mentor | Mentor[] | null {
+        const nonProposedMentors = this.getNonProposedMentors(allMentors);
+        return this.whoParticipantPrefer(nonProposedMentors);
     }
 
     private getNonProposedMentors(allMentors: Mentor[]): Mentor[] {
-        return _.xor(allMentors, this.proposedMentors);
-    }
-
-    private getFirstInPreferenceListOfOptions(options: Mentor[]): Mentor | null {
-        return this.getOldestMentorOfClassification(options, VoteClassification.Green) || 
-            this.getOldestMentorOfClassification(options, VoteClassification.Yellow) ||
-            this.getOldestMentorOfClassification(options, VoteClassification.Red);
-    }
-
-    private getOldestMentorOfClassification(options: Mentor[], voteClassification: VoteClassification ): Mentor | null {
-        const filteredOptions = options.filter(option => this.votes[option.name] === voteClassification);
-        if (filteredOptions.length > 0) {
-            return this.getOldestMentor(filteredOptions);
-        }
-        return null;
-    }
-
-    private getOldestMentor(options: Mentor[]): Mentor {
-        const sortedOptions = options.sort((mentor1, mentor2) => 
-            mentor2.startDate.getTime() - mentor1.startDate.getTime());
-        return sortedOptions.pop()!;
+        return _.xorBy(allMentors, this.proposedMentors, "name");
     }
 }
