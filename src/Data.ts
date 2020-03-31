@@ -126,7 +126,7 @@ const willian = new Mentee(
 );
 const wagner = new Mentee(
     "wagner",
-    new Date(2019, 6),
+    new Date(2019, 5),
     { luis: VoteClassification.Green, carol: VoteClassification.Green, priscila: VoteClassification.Green, maiara: VoteClassification.Green,
       marcia: VoteClassification.Green, lucas: VoteClassification.Green, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Red,
       gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
@@ -182,7 +182,7 @@ const felipe = new Mentee(
 );
 const henrique = new Mentee(
     "henrique",
-    new Date(2020, 7),
+    new Date(2020, 1),
     { luis: VoteClassification.Green, carol: VoteClassification.Yellow, priscila: VoteClassification.Yellow, maiara: VoteClassification.Yellow,
       marcia: VoteClassification.Green, lucas: VoteClassification.Yellow, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Green,
       gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
@@ -190,7 +190,7 @@ const henrique = new Mentee(
 );
 const joao = new Mentee(
     "joao",
-    new Date(2020, 8),
+    new Date(2020, 1),
     { luis: VoteClassification.Green, carol: VoteClassification.Green, priscila: VoteClassification.Yellow, maiara: VoteClassification.Green,
       marcia: VoteClassification.Yellow, lucas: VoteClassification.Red, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Yellow,
       gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Yellow, daniel: VoteClassification.Green

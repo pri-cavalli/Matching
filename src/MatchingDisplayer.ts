@@ -18,7 +18,11 @@ export namespace Display {
                 return {...pairs, votesNumber};
             }
         );
-        const pairs = _.uniqWith(simplifyMatchings, _.isEqual);
+        const pairs = _.uniqWith(simplifyMatchings, _.isEqual).sort((a,b) => 
+            a.votesNumber.green === b.votesNumber.green ? 
+                a.votesNumber.red - b.votesNumber.red :
+                a.votesNumber.green - b.votesNumber.green
+        );
         console.log(pairs)
     }
 
