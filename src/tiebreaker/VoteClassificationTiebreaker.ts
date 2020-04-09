@@ -11,7 +11,7 @@ export const voteClassificationTiebreaker: Tiebreaker = (options: Participant[],
            getFilteredOptionsByVoteClassification(decidingParticipant, options, VoteClassification.Red);
 }
 
-function getFilteredOptionsByVoteClassification(
+export function getFilteredOptionsByVoteClassification(
     decidingParticipant: Participant,
     options: Participant[],
     voteClassification: VoteClassification

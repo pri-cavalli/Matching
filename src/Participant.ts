@@ -1,41 +1,35 @@
 import * as _ from "lodash";
 import { Votes } from "./Vote";
 import { Tiebreaker, TiebreakerReturns } from "./tiebreaker/Tiebreaker";
+import { PreferenceList } from "./PreferenceList";
 
 export enum ParticipantType {
     Mentee = "Mentee",
     Mentor = "Mentor"
 }
 
-export abstract class Participant {
-    public abstract type: ParticipantType;
-    public tiebreakers: Tiebreaker[] = [];
-    constructor(public name: string, public startDate: Date, public votes: Votes) { }
-
-    public whoParticipantPrefer(options: Participant[]): TiebreakerReturns {
-        return this.tiebreakers.reduce((currentOptions: TiebreakerReturns, tiebreaker) => {
-            if (currentOptions && Array.isArray(currentOptions)) {
-                return tiebreaker(currentOptions, this);
-            }
-            return currentOptions;
-        }, options);
-    }
+export interface WorkedWith {
+    participant: Participant;
+    mentorshipStartDate: Date;
 }
 
-export class Mentor extends Participant {
-    public type = ParticipantType.Mentor;
-}
-
-export class Mentee extends Participant {
-    public type = ParticipantType.Mentee;
-    public proposedMentors: Mentor[] = [];
-
-    public getHigherNonProposedMentor(allMentors: Mentor[]): Mentor | Mentor[] | null {
-        const nonProposedMentors = this.getNonProposedMentors(allMentors);
-        return this.whoParticipantPrefer(nonProposedMentors);
+export class Participant {
+    public alreadyWorkedWith: WorkedWith[] = [];
+    public preferenceList: PreferenceList;
+    public proposedToParticipant: Participant[] = [];
+    constructor(
+        public type: ParticipantType,
+        public name: string,
+        public startDate: Date,
+        public votes: Votes
+    ) { 
+        this.preferenceList = new PreferenceList(this, [], []);
     }
 
-    private getNonProposedMentors(allMentors: Mentor[]): Mentor[] {
-        return _.xorBy(allMentors, this.proposedMentors, "name");
+    public whoPrefer(participant1: Participant, participant2: Participant): Participant | Participant[] {
+        const rank1 = this.preferenceList.getRankNumberFromParticipant(participant1);
+        const rank2 = this.preferenceList.getRankNumberFromParticipant(participant2);
+        return rank1 === rank2 ? [participant1, participant2] :
+               rank1 < rank2 ? participant1 : participant2;
     }
 }
