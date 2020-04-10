@@ -3,7 +3,7 @@ import { Tiebreaker, TiebreakerReturns } from "./tiebreaker/Tiebreaker";
 import { isArray } from "util";
 import _ from "lodash";
 
-interface RankPosition {
+export interface RankPosition {
     set?: Participant[];
     unique?: Participant;
     position: number
@@ -14,8 +14,9 @@ export class PreferenceList {
     private list: RankPosition[] = [];
     private count = 0;
     constructor(listOwner: Participant, tiebreakers: Tiebreaker[], options: Participant[]) {
-        options = this.addParticipantsAlreadyWorkedWith(listOwner, options.slice());
-        this.addOtherParticipants(listOwner, tiebreakers, options);
+        let copyOptions = options.slice()
+        copyOptions = this.addParticipantsAlreadyWorkedWith(listOwner, copyOptions);
+        this.addOtherParticipants(listOwner, tiebreakers, copyOptions);
         this.fillRankPosition();
     }
     
@@ -31,6 +32,7 @@ export class PreferenceList {
         this.count--;
         const rankPosition = this.list[this.count];
         delete this.list[this.count];
+        this.list = _.compact(this.list);
         return rankPosition;
     }
 

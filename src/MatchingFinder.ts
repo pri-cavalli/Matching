@@ -1,7 +1,7 @@
 import * as _ from "lodash";
 import { Participant } from "./Participant";
 import { Tiebreaker } from "./tiebreaker/Tiebreaker";
-import { PreferenceList } from "./PreferenceList";
+import { PreferenceList, RankPosition } from "./PreferenceList";
 
 export interface Pair {
     mentor: Participant,
@@ -29,6 +29,14 @@ export default class MatchingFinder {
             participant.preferenceList = new PreferenceList(participant, tiebreaks, this.mentors);
         });
     }
+    
+    public addAgainRankWithSubsetToMentee(menteeFromOtherMatchingFinder: Participant, popMentor: Participant, rank: RankPosition) {
+        const mentee = this.mentees.find(m => m.name === menteeFromOtherMatchingFinder.name)!;
+        const restOfSet = _.difference(rank.set!, [popMentor]);
+        restOfSet.length === 1 ? 
+            mentee.preferenceList.add({...rank, unique: restOfSet.pop(), set: undefined }) :
+            mentee.preferenceList.add({...rank, set: restOfSet });        
+    }
 
     public run(): Matching[] {
         let shouldStillRun = true;
@@ -40,16 +48,21 @@ export default class MatchingFinder {
             }
             const mentorsInHigherPosition = mentee.preferenceList.pop();
             if (!mentorsInHigherPosition) {
+                console.log(mentee.name)
                 throw new Error("no available mentor")
             }
 
             if (mentorsInHigherPosition.set) {
                 mentorsInHigherPosition.set.map(m => {
                     const matchingCopy = this.copyMatchingFinder();
+                    matchingCopy.addAgainRankWithSubsetToMentee(mentee, m, mentorsInHigherPosition);
                     matchingCopy.menteeProposeToParticipant(mentee, m);
                     this.addMatchingsThatRunInParallel(matchingCopy);
-                    shouldStillRun = false;
-                });''
+                });
+                shouldStillRun = false;
+                this.mentees = [];
+                this.mentors = [];
+                this.currentMatching = [];
             } else if (mentorsInHigherPosition.unique) {
                 this.menteeProposeToParticipant(mentee, mentorsInHigherPosition.unique);
             }
