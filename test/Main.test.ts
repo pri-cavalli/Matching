@@ -5,15 +5,16 @@ import { optionsPreferenceTiebreaker } from "../src/tiebreaker/OptionsPreference
 import { oldestStartDateTiebreaker } from "../src/tiebreaker/OldestStartDateTiebreaker";
 import MatchingFinder from "../src/MatchingFinder";
 import { Display } from "../src/MatchingDisplayer";
-import { popOptionsTiebreaker } from "../src/tiebreaker/PopOptionsTiebreaker";
 
-describe("Main tests", () => {
+describe.only("Main tests", () => {
   describe("build preference list", () => {
-    it("", () => {
+    it("", async () => {
       const matching = new MatchingFinder(mentors, mentees);
-      matching.setPreferenceListInMentors([voteClassificationTiebreaker, optionsPreferenceTiebreaker,/* oldestStartDateTiebreaker,*/ popOptionsTiebreaker]);
-      matching.setPreferenceListInMentees([voteClassificationTiebreaker, optionsPreferenceTiebreaker,/* oldestStartDateTiebreaker,*/ popOptionsTiebreaker]);
-      Display.matching(matching.run());
+      matching.setPreferenceListInMentors([voteClassificationTiebreaker, optionsPreferenceTiebreaker, oldestStartDateTiebreaker])//, popOptionsTiebreaker]);
+      matching.setPreferenceListInMentees([voteClassificationTiebreaker, optionsPreferenceTiebreaker, oldestStartDateTiebreaker])//, popOptionsTiebreaker]);
+      matching.run().then((result) => 
+        Display.matching(result)
+    );
     });
   }); 
 }); 

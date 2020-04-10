@@ -1,11 +1,15 @@
 import * as _ from "lodash";
 import { Votes } from "./Vote";
-import { Tiebreaker, TiebreakerReturns } from "./tiebreaker/Tiebreaker";
 import { PreferenceList } from "./PreferenceList";
 
 export enum ParticipantType {
     Mentee = "Mentee",
     Mentor = "Mentor"
+}
+
+export const PairParticipantTypeMap: {[key in ParticipantType]: ParticipantType} = {
+    [ParticipantType.Mentor]: ParticipantType.Mentee,
+    [ParticipantType.Mentee]: ParticipantType.Mentor
 }
 
 export interface WorkedWith {

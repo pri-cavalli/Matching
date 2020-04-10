@@ -9,6 +9,9 @@ import { popOptionsTiebreaker } from "./tiebreaker/PopOptionsTiebreaker";
 
 const matching = new MatchingFinder(mentors, mentees);
 matching.setPreferenceListInMentors([voteClassificationTiebreaker, optionsPreferenceTiebreaker, oldestStartDateTiebreaker])//, popOptionsTiebreaker]);
-matching.setPreferenceListInMentees([voteClassificationTiebreaker, optionsPreferenceTiebreaker, oldestStartDateTiebreaker])//, popOptionsTiebreaker]);
-
-Display.matching(matching.run());
+matching.setPreferenceListInMentees([voteClassificationTiebreaker, optionsPreferenceTiebreaker])//, oldestStartDateTiebreaker])//, popOptionsTiebreaker]);
+matching.run().then((result) => {
+        Display.matching(result);
+        process.exit();
+    }
+);
