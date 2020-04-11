@@ -58,7 +58,7 @@ export class PreferenceList {
         {
             const highestParticipants = tiebreakers.reduce((currentOptions: TiebreakerReturns, tiebreaker) => {
                 if (currentOptions && Array.isArray(currentOptions)) {
-                    return tiebreaker(currentOptions, listOwner);
+                    return tiebreaker.run(currentOptions, listOwner);
                 }
                 return currentOptions;
             }, options);

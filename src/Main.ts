@@ -1,15 +1,18 @@
 import MatchingFinder from "./MatchingFinder";
 import { mentors, mentees } from "./Data";
-import { voteClassificationTiebreaker } from "./tiebreaker/VoteClassificationTiebreaker";
-import { oldestStartDateTiebreaker } from "./tiebreaker/OldestStartDateTiebreaker";
 import { Display } from "./MatchingDisplayer";
-import { optionsPreferenceTiebreaker } from "./tiebreaker/OptionsPreferenceTiebreaker";
-import { popOptionsTiebreaker } from "./tiebreaker/PopOptionsTiebreaker";
+import { VoteClassificationTiebreaker } from "./tiebreaker/VoteClassificationTiebreaker";
+import { OptionsPreferenceTiebreaker } from "./tiebreaker/OptionsPreferenceTiebreaker";
+import { OldestStartDateTiebreaker } from "./tiebreaker/OldestStartDateTiebreaker";
+import { GetFirstOptionTiebreaker } from "./tiebreaker/GetFirstOptionTiebreaker";
 
-
+const voteClassificationTiebreaker = new VoteClassificationTiebreaker();
+const optionsPreferenceTiebreaker = new OptionsPreferenceTiebreaker();
+const oldestStartDateTiebreaker = new OldestStartDateTiebreaker();
+const getFirstOptionTiebreaker = new GetFirstOptionTiebreaker();
 const matching = new MatchingFinder(mentors, mentees);
-matching.setPreferenceListInMentors([voteClassificationTiebreaker, optionsPreferenceTiebreaker, oldestStartDateTiebreaker])//, popOptionsTiebreaker]);
-matching.setPreferenceListInMentees([voteClassificationTiebreaker, optionsPreferenceTiebreaker])//, oldestStartDateTiebreaker])//, popOptionsTiebreaker]);
+matching.setPreferenceListInMentors([voteClassificationTiebreaker, optionsPreferenceTiebreaker, oldestStartDateTiebreaker])//, getFirstOptionTiebreaker]);
+matching.setPreferenceListInMentees([voteClassificationTiebreaker, optionsPreferenceTiebreaker, oldestStartDateTiebreaker])//, getFirstOptionTiebreaker]);
 matching.run().then((result) => {
         Display.matching(result);
         process.exit();

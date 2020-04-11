@@ -1,21 +1,23 @@
 import { Participant } from "../Participant";
 import { VoteClassification } from "../Vote";
-import { Tiebreaker, TiebreakerReturns, generalSwitchCase } from "./Tiebreaker";
+import { Tiebreaker, TiebreakerReturns } from "./Tiebreaker";
 
-export const voteClassificationTiebreaker: Tiebreaker = (options: Participant[], decidingParticipant?: Participant) => {
-    if (!decidingParticipant) {
-        return options;
+export class VoteClassificationTiebreaker extends Tiebreaker{
+    public run(options: Participant[], decidingParticipant?: Participant): TiebreakerReturns {
+        if (!decidingParticipant) {
+            return options;
+        }
+        return this.filterOptionsByDecidingParticipantVoteClassification(decidingParticipant, options, VoteClassification.Green) ||
+            this.filterOptionsByDecidingParticipantVoteClassification(decidingParticipant, options, VoteClassification.Yellow) ||
+            this.filterOptionsByDecidingParticipantVoteClassification(decidingParticipant, options, VoteClassification.Red);
     }
-    return getFilteredOptionsByVoteClassification(decidingParticipant, options, VoteClassification.Green) ||
-           getFilteredOptionsByVoteClassification(decidingParticipant, options, VoteClassification.Yellow) ||
-           getFilteredOptionsByVoteClassification(decidingParticipant, options, VoteClassification.Red);
-}
 
-export function getFilteredOptionsByVoteClassification(
-    decidingParticipant: Participant,
-    options: Participant[],
-    voteClassification: VoteClassification
-): TiebreakerReturns {
-    const filteredOptions = options.filter(option => decidingParticipant.votes[option.name] === voteClassification);
-    return generalSwitchCase(filteredOptions);
+    private filterOptionsByDecidingParticipantVoteClassification(
+        decidingParticipant: Participant,
+        options: Participant[],
+        voteClassification: VoteClassification
+    ): TiebreakerReturns {
+        const filteredOptions = options.filter(option => decidingParticipant.votes[option.name] === voteClassification);
+        return this.decideHowReturnOptionsByItsLength(filteredOptions);
+    }
 }
