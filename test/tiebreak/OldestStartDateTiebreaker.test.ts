@@ -5,7 +5,7 @@ import { Participant, ParticipantType } from "../../src/Participant";
 
 let mentor1: Participant, mentor2: Participant, mentor3: Participant, oldestMentor: Participant, oldestMentor2: Participant;
 const oldestStartDateTiebreaker = new OldestStartDateTiebreaker();
-describe("Tiebreaker tests", () => {
+describe("OldestStartDateTiebreaker tests", () => {
     beforeEach(() => {
         mentor1 = new Participant(ParticipantType.Mentor, "mentor1", new Date(2020, 1), {})
         mentor2 = new Participant(ParticipantType.Mentor, "mentor2", new Date(2020, 1), {})
@@ -13,11 +13,11 @@ describe("Tiebreaker tests", () => {
         oldestMentor = new Participant(ParticipantType.Mentor, "oldestMentor", new Date(2008, 1), {})
         oldestMentor2 = new Participant(ParticipantType.Mentor, "oldestMentor2", new Date(2008, 1), {})
     });
-  describe("oldestStartDateTiebreaker", () => {
+  describe("run", () => {
     it("should return null when the options are zero", () => {
         expect(
             oldestStartDateTiebreaker.run([])
-        ).to.be.equal(null);                
+        ).to.be.null;                
     });
     it("should return the mentor when options have only one mentor", () => {
         expect(

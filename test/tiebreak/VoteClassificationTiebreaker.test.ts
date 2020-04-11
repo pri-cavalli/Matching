@@ -6,19 +6,19 @@ import { VoteClassification } from "../../src/Vote";
 
 let mentor1: Participant, mentor2: Participant, mentor3: Participant, mentor4: Participant;
 const voteClassificationTiebreaker = new VoteClassificationTiebreaker();
-describe("Tiebreaker tests", () => {
+describe("VoteClassificationTiebreaker tests", () => {
     beforeEach(() => {
         mentor1 = new Participant(ParticipantType.Mentor, "mentor1", new Date(1), {})
         mentor2 = new Participant(ParticipantType.Mentor, "mentor2", new Date(2), {})
         mentor3 = new Participant(ParticipantType.Mentor, "mentor3", new Date(3), {})
         mentor4 = new Participant(ParticipantType.Mentor, "mentor4", new Date(4), {})
     });
-  describe("voteClassificationTiebreaker", () => {
+  describe("run", () => {
     it("should return null when the options are zero", () => {
         const mentee = new Participant(ParticipantType.Mentee, "", new Date(1), {});
         expect(
             voteClassificationTiebreaker.run([], mentee)
-        ).to.be.equal(null);                
+        ).to.be.null;                
     });
     it("should return the options without change when don't have decidingParticipant", () => {
         const options = [mentor1, mentor2, mentor3];

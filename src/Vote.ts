@@ -8,6 +8,12 @@ export enum VoteClassification {
     Red = "Red"
 }
 
+export interface VotesNumber {
+    [VoteClassification.Green]: number,
+    [VoteClassification.Yellow]: number,
+    [VoteClassification.Red]: number
+}
+
 export function getGreaterVoteClassification(
     classification1: VoteClassification,
     classification2: VoteClassification
