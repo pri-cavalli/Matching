@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { Participant, PairParticipantTypeMap } from "./Participant";
+import { Participant, PairParticipantTypeMap, ParticipantType } from "./Participant";
 import { Tiebreaker } from "./tiebreaker/Tiebreaker";
 import { PreferenceList, RankPosition } from "./PreferenceList";
 import { type } from "os";
@@ -53,16 +53,10 @@ export default class MatchingFinder {
 
             if (nextMentorInRank.set) {
                 const indexAnswer = await this.askToUserWhoUse(mentee, nextMentorInRank);
-                const betterMentor = nextMentorInRank.set[indexAnswer];
-
-                const restOfSet = _.difference(nextMentorInRank.set!, [betterMentor]);
-                restOfSet.length === 1 ? 
-                    mentee.preferenceList.add({...nextMentorInRank, unique: restOfSet.pop(), set: undefined }) :
-                    mentee.preferenceList.add({...nextMentorInRank, set: restOfSet });   
-                console.log(mentee.name + " proposed to " + betterMentor.name );
-                await this.menteeProposeToParticipant(mentee, betterMentor);
+                const chosenMentor = nextMentorInRank.set[indexAnswer];
+                this.addBackOtherMentorsToMenteePreferenceList(mentee, chosenMentor, nextMentorInRank);
+                await this.menteeProposeToParticipant(mentee, chosenMentor);
             } else if (nextMentorInRank.unique) {
-                console.log(mentee.name + " proposed to " + nextMentorInRank.unique.name );
                 await this.menteeProposeToParticipant(mentee, nextMentorInRank.unique);
             }
         }
@@ -70,6 +64,13 @@ export default class MatchingFinder {
             this.matchings.push(this.currentMatching)
         }
         return this.matchings;
+    }
+
+    private addBackOtherMentorsToMenteePreferenceList(mentee: Participant, proposedMentor: Participant, rank: RankPosition): void {
+        const restOfSet = _.difference(rank.set!, [proposedMentor]);
+        restOfSet.length === 1 ? 
+            mentee.preferenceList.add({...rank, unique: restOfSet.pop(), set: undefined }) :
+            mentee.preferenceList.add({...rank, set: restOfSet });
     }
 
     private async askToUserWhoUse(participant: Participant, optionsToUse: RankPosition | Participant[]): Promise<number> {
@@ -87,6 +88,7 @@ export default class MatchingFinder {
     }
 
     public async menteeProposeToParticipant(mentee: Participant, mentor: Participant): Promise<void> {
+        console.log(mentee.name + " proposed to " + mentor.name );
         mentee.proposedToParticipant.push(mentor);
         if (this.isParticipantFree(mentor)) {
             this.currentMatching.push({ mentor, mentee});
@@ -128,16 +130,6 @@ export default class MatchingFinder {
         _.remove(this.currentMatching, (a) => this.isSameParticipant(a.mentor, mentor) || this.isSameParticipant(a.mentee, currentMentee) );
         this.currentMatching.push({ mentor, mentee: newMentee});
     }
-
-    // private copyMatchingFinder(): MatchingFinder {
-    //     const matchingCopy = new MatchingFinder(_.cloneDeep(this.mentors), _.cloneDeep(this.mentees));
-    //     matchingCopy.currentMatching = _.cloneDeep(this.currentMatching);
-    //     return matchingCopy;
-    // }
-
-    // private addMatchingsThatRunInParallel(matchingCopy: MatchingFinder): void {
-    //     this.matchings = this.matchings.concat(matchingCopy.run());
-    // }
 
     private isSameParticipant(participant1: Participant, participant2: Participant): boolean {
         return participant1.name === participant2.name;
