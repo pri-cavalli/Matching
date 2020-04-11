@@ -2,11 +2,21 @@ import { Participant } from "../Participant";
 import { Tiebreaker, TiebreakerReturns } from "./Tiebreaker";
 
 export class OldestStartDateTiebreaker extends Tiebreaker{
+    constructor(private rangeDate?: Date) {
+        super();     
+    }
+
     public run(options: Participant[]): TiebreakerReturns {
-        const sortedOptions = options.sort((participant1, participant2) => 
-            participant1.startDate.getTime() - participant2.startDate.getTime());
-        const oldestParticipants = sortedOptions.filter(participant => participant.startDate.getTime() === sortedOptions[0].startDate.getTime());
+        const filteredOptions = options.filter(option => 
+            (this.rangeDate && this.rangeDate.getTime() > option.startDate.getTime()) || !this.rangeDate);
+        if (filteredOptions.length === 0) {
+            return this.decideHowReturnOptionsByItsLength(options);
+        }
+
+        const sortedOptions = filteredOptions.sort((option1, option2) => 
+            option1.startDate.getTime() - option2.startDate.getTime());
+        const oldestoptions = sortedOptions.filter(option => option.startDate.getTime() === sortedOptions[0].startDate.getTime());
         
-        return this.decideHowReturnOptionsByItsLength(oldestParticipants);
+        return this.decideHowReturnOptionsByItsLength(oldestoptions);
     }
 }

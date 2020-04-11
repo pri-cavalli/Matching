@@ -9,7 +9,7 @@ import { MostDesiredParticipantTiebreaker } from "./tiebreaker/MostDesiredPartic
 
 const voteClassificationTiebreaker = new VoteClassificationTiebreaker();
 const optionsPreferenceTiebreaker = new OptionsPreferenceTiebreaker();
-const oldestStartDateTiebreaker = new OldestStartDateTiebreaker();
+const oldestStartDateTiebreaker = new OldestStartDateTiebreaker(new Date(2019, 4));
 const getFirstOptionTiebreaker = new GetFirstOptionTiebreaker();
 const mostDesiredOptionTiebreaker = new MostDesiredParticipantTiebreaker(mentors, mentees);
 
