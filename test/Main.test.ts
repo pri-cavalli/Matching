@@ -6,7 +6,7 @@ import { OptionsPreferenceTiebreaker } from "../src/tiebreaker/OptionsPreference
 import { VoteClassificationTiebreaker } from "../src/tiebreaker/VoteClassificationTiebreaker";
 import { OldestStartDateTiebreaker } from "../src/tiebreaker/OldestStartDateTiebreaker";
 import { FirstOptionTiebreaker } from "../src/tiebreaker/FirstOptionTiebreaker";
-import { MostDesiredParticipantTiebreaker } from "../src/tiebreaker/MostDesiredParticipantTiebreaker";
+import { MostDesiredTiebreaker } from "../src/tiebreaker/MostDesiredTiebreaker";
 
 describe("Main tests", async () => {
   it("", async () => {
@@ -14,7 +14,7 @@ describe("Main tests", async () => {
     const optionsPreferenceTiebreaker = new OptionsPreferenceTiebreaker();
     const oldestStartDateTiebreaker = new OldestStartDateTiebreaker();
     const firstOptionTiebreaker = new FirstOptionTiebreaker();
-    const mostDesiredOptionTiebreaker = new MostDesiredParticipantTiebreaker(mentors, mentees);
+    const mostDesiredOptionTiebreaker = new MostDesiredTiebreaker(mentors, mentees);
 
     const menteesTiebreakers = [voteClassificationTiebreaker, optionsPreferenceTiebreaker, mostDesiredOptionTiebreaker]//, getFirstOptionTiebreaker);
     const mentorsTiebreakers = [voteClassificationTiebreaker, optionsPreferenceTiebreaker, oldestStartDateTiebreaker]//, getFirstOptionTiebreaker);

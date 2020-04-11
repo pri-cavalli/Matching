@@ -3,7 +3,7 @@ import { Participant } from "../Participant";
 import { VoteClassification, VotesNumber } from "../Vote";
 import _ from "lodash";
 
-export class MostDesiredParticipantTiebreaker extends Tiebreaker {
+export class MostDesiredTiebreaker extends Tiebreaker {
     private participantAndReceivedVotesMap: {[key: string]: VotesNumber} = {};
     constructor(allMentors: Participant[], allMentees: Participant[]) {
         super();
