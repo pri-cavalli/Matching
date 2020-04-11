@@ -1,32 +1,9 @@
 import "mocha";
-import { mentors, mentees } from "../src/Data";
-import MatchingFinder from "../src/MatchingFinder";
-import { Display } from "../src/MatchingDisplayer";
-import { OptionsPreferenceTiebreaker } from "../src/tiebreaker/OptionsPreferenceTiebreaker";
-import { VoteClassificationTiebreaker } from "../src/tiebreaker/VoteClassificationTiebreaker";
-import { StartDateTiebreaker, TimeTiebreakType } from "../src/tiebreaker/StartDateTiebreaker";
-import { FirstOptionTiebreaker } from "../src/tiebreaker/FirstOptionTiebreaker";
-import { MostDesiredTiebreaker } from "../src/tiebreaker/MostDesiredTiebreaker";
+import { main } from "../src/Main";
 
-describe("Main tests", async () => {
+describe.only("Main tests", async () => {
   it("", async () => {
-    const voteClassificationTiebreaker = new VoteClassificationTiebreaker();
-    const optionsPreferenceTiebreaker = new OptionsPreferenceTiebreaker();
-    const oldestStartDateTiebreaker = new StartDateTiebreaker(TimeTiebreakType.Oldest);
-    const firstOptionTiebreaker = new FirstOptionTiebreaker();
-    const mostDesiredOptionTiebreaker = new MostDesiredTiebreaker(mentors, mentees);
-
-    const menteesTiebreakers = [voteClassificationTiebreaker, optionsPreferenceTiebreaker, mostDesiredOptionTiebreaker]//, getFirstOptionTiebreaker);
-    const mentorsTiebreakers = [voteClassificationTiebreaker, optionsPreferenceTiebreaker, oldestStartDateTiebreaker]//, getFirstOptionTiebreaker);
-
-
-    const matching = new MatchingFinder(mentors, mentees);
-    matching.setPreferenceListInMentors(mentorsTiebreakers);
-    matching.setPreferenceListInMentees(menteesTiebreakers);
-    
-    const result = await matching.run()
-    Display.matching(result);
-    process.exit();
+    main();
   });
 });
 
