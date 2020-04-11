@@ -4,24 +4,16 @@ import { Matching, Pair } from "./MatchingFinder";
 
 export namespace Display {
 
-    export function matching(matchings: Matching[]): void {
-        const simplifyMatchings = matchings.map(
-            (matching) => {
-                const pairs = matching.reduce(simplifyPair, {});
-                const votesNumber = matching.reduce(countVotes, { Green: 0, Yellow: 0, Red: 0 });
-                return {...pairs, votesNumber};
-            }
-        );
-        const pairs = _.uniqWith(simplifyMatchings, _.isEqual).sort((a,b) => 
-            a.votesNumber.Green === b.votesNumber.Green ? 
-                b.votesNumber.Red - a.votesNumber.Red :
-                a.votesNumber.Green - b.votesNumber.Green
-        );
-        console.log(pairs)
+    export function matching(matching: Matching): void {
+        const pairs = matching.reduce(simplifyPair, {});
+        const votesNumber = matching.reduce(countVotes, { Green: 0, Yellow: 0, Red: 0 });
+        const simplifyMatching = {...pairs, votesNumber};
+        console.log("--------------------------------- Matching ---------------------------------")
+        console.log(simplifyMatching)
     }
 
     function simplifyPair(acc: any, pair: Pair, index: number): any {
-        acc["pair" + index] = {
+        acc["pair " + (index + 1)] = {
             mentor: pair.mentor.name + " voted " + pair.mentor.votes[pair.mentee.name],
             mentee: pair.mentee.name + " voted " + pair.mentee.votes[pair.mentor.name]
         };

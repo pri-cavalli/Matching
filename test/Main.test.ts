@@ -3,175 +3,87 @@ import { main } from "../src/Main";
 
 describe("Main tests", async () => {
   it("", async () => {
-    main();
+    // main();
   });
 });
 
 /*
 For Mentee natalia, which Mentor is more appropriate?
-1 - luis                                                                      
-2 - lucas                                                                     
-3 - daniel                                                                    
-1                                                                             
-natalia proposed to luis                                                      
-For Mentee pedro, which Mentor is more appropriate?                           
-1 - carol                                                                     
-2 - marcia                                                                    
-3 - lucas                                                                     
-3                                                                             
-pedro proposed to lucas                                                       
-For Mentee giovana, which Mentor is more appropriate?                         
-1 - priscila                                                                  
-2 - marcia                                                                    
-2                                                                             
-giovana proposed to marcia                                                    
-For Mentee vinicius, which Mentor is more appropriate?                        
-1 - luis                                                                      
-2 - carol                                                                     
-3 - maiara                                                                    
-4 - daniel                                                                    
-1                                                                             
-vinicius proposed to luis                                                     
-For Mentee natalia, which Mentor is more appropriate?                         
-1 - lucas                                                                     
-2 - daniel                                                                    
-1                                                                             
-natalia proposed to lucas                                                     
-natalia proposed to daniel                                                    
-athos proposed to mateus                                                      
-felipe proposed to marcia                                                     
-giovana proposed to priscila                                                  
-henrique proposed to daniel                                                   
-For Mentor daniel, which Mentee is more appropriate?                          
-1 - natalia                                                                   
-2 - henrique                                                                  
-2                                                                             
-natalia proposed to carol                                                     
-For Mentee joao, which Mentor is more appropriate?                            
-1 - carol                                                                     
-2 - maiara                                                                    
-1                                                                             
-joao proposed to carol                                                        
-natalia proposed to marcia                                                    
-For Mentee natalia, which Mentor is more appropriate?                         
-1 - cassiano                                                                  
-2 - gabriel                                                                   
-1                                                                             
-natalia proposed to cassiano                                                  
-For Mentee wagner, which Mentor is more appropriate?                          
-1 - maiara                                                                    
-2 - priscila                                                                  
-3 - marcia                                                                    
-1                                                                             
-wagner proposed to maiara                                                     
-willian proposed to mateus                                                    
-For Mentee athos, which Mentor is more appropriate?                           
-1 - lucas                                                                     
-2 - daniel                                                                    
-2                                                                             
-athos proposed to daniel                                                      
-athos proposed to lucas                                                       
-For Mentee athos, which Mentor is more appropriate?                           
-1 - priscila                                                                  
-2 - cassiano                                                                  
-3 - gabriel                                                                   
-3                                                                             
-athos proposed to gabriel                                                     
-For Mentee nicolas, which Mentor is more appropriate?                         
-1 - luis                                                                      
-2 - carol                                                                     
-1                                                                             
-nicolas proposed to luis                                                      
-For Mentee vinicius, which Mentor is more appropriate?                        
-1 - carol                                                                     
-2 - maiara                                                                    
-3 - daniel                                                                    
-1                                                                             
-vinicius proposed to carol                                                    
-joao proposed to maiara                                                       
-For Mentee joao, which Mentor is more appropriate?                            
-1 - luis                                                                      
-2 - daniel                                                                    
-2                                                                             
-joao proposed to daniel                                                       
-joao proposed to luis                                                         
-For Mentee joao, which Mentor is more appropriate?                            
-1 - mateus                                                                    
-2 - gabriel                                                                   
-2                                                                             
-joao proposed to gabriel                                                      
-For Mentee athos, which Mentor is more appropriate?                           
-1 - priscila                                                                  
-2 - cassiano                                                                  
-2                                                                             
-athos proposed to cassiano                                                    
-athos proposed to priscila                                                    
-For Mentee athos, which Mentor is more appropriate?                           
-1 - luis                                                                      
-2 - luan                                                                      
-3 - guilherme                                                                 
-3                                                                             
-athos proposed to guilherme                                                   
-joice proposed to luis                                                        
-For Mentee joice, which Mentor is more appropriate?                           
-1 - gabriel                                                                   
-2 - luan                                                                      
-2                                                                             
-joice proposed to luan                                                        
-[                                                                             
-  {                                                                           
-    pair0: { mentor: 'lucas voted Green', mentee: 'pedro voted Green' },      
-    pair1: { mentor: 'marcia voted Green', mentee: 'felipe voted Green' },    
-    pair2: { mentor: 'priscila voted Green', mentee: 'giovana voted Green' }, 
-    pair3: { mentor: 'daniel voted Green', mentee: 'henrique voted Green' },  
-    pair4: { mentor: 'cassiano voted Green', mentee: 'natalia voted Yellow' },
-    pair5: { mentor: 'maiara voted Green', mentee: 'wagner voted Green' },    
-    pair6: { mentor: 'mateus voted Green', mentee: 'willian voted Green' },   
-    pair7: { mentor: 'luis voted Green', mentee: 'nicolas voted Green' },     
-    pair8: { mentor: 'carol voted Green', mentee: 'vinicius voted Green' },   
-    pair9: { mentor: 'gabriel voted Green', mentee: 'joao voted Yellow' },    
-    pair10: { mentor: 'guilherme voted Yellow', mentee: 'athos voted Yellow' }
-    pair11: { mentor: 'luan voted Yellow', mentee: 'joice voted Yellow' },    
-    votesNumber: { green: 18, yellow: 6, red: 0 }                             
-  }                                                                           
-]                     
-
-
-
-natalia proposed to luis 
+1 - luis
+2 - lucas
+3 - daniel
+2
+natalia proposed to lucas
+For Mentee pedro, which Mentor is more appropriate?
+1 - carol
+2 - marcia
+3 - lucas
+2
 pedro proposed to marcia
+For Mentee giovana, which Mentor is more appropriate?
+1 - priscila
+2 - marcia
+2
 giovana proposed to marcia
-giovana proposed to priscila
-vinicius proposed to luis
+For Mentee pedro, which Mentor is more appropriate?
+1 - carol
+2 - lucas
+2
+pedro proposed to lucas
+For Mentee natalia, which Mentor is more appropriate?
+1 - luis
+2 - daniel
+2
 natalia proposed to daniel
+For Mentee vinicius, which Mentor is more appropriate?
+1 - luis
+2 - carol
+3 - maiara
+4 - daniel
+2
+vinicius proposed to carol
 athos proposed to mateus
 felipe proposed to marcia
-pedro proposed to carol
+giovana proposed to priscila
 henrique proposed to daniel
-natalia proposed to lucas
-joao proposed to carol
+natalia proposed to luis
 joao proposed to maiara
-wagner proposed to marcia
-wagner proposed to maiara
-joao proposed to luis
-joao proposed to daniel
-joao proposed to mateus
-joao proposed to gabriel
+For Mentee wagner, which Mentor is more appropriate?
+1 - maiara
+2 - priscila
+2
+wagner proposed to priscila
+giovana proposed to luis
+For Mentee giovana, which Mentor is more appropriate?
+1 - cassiano
+2 - gabriel
+3 - luan
+2
+giovana proposed to gabriel
 willian proposed to mateus
-athos proposed to daniel
-athos proposed to lucas
+For Mentee athos, which Mentor is more appropriate?
+1 - cassiano
+2 - gabriel
+2
 athos proposed to gabriel
+For Mentee giovana, which Mentor is more appropriate?
+1 - cassiano
+2 - luan
+2
+giovana proposed to luan
+For Mentee nicolas, which Mentor is more appropriate?
+1 - luis
+2 - carol
+2
+nicolas proposed to carol
+For Mentee vinicius, which Mentor is more appropriate?
+1 - luis
+2 - maiara
+3 - daniel
+2
+vinicius proposed to maiara
+joao proposed to gabriel
 athos proposed to cassiano
-nicolas proposed to luis
-vinicius proposed to carol
-pedro proposed to lucas
-natalia proposed to carol
-natalia proposed to marcia
-natalia proposed to gabriel
-natalia proposed to cassiano
-athos proposed to priscila
-athos proposed to guilherme
 joice proposed to luis
-joice proposed to gabriel
-joice proposed to luan
+natalia proposed to guilherme
 */

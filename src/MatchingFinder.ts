@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { Participant, PairParticipantTypeMap, ParticipantType } from "./Participant";
+import { Participant, PairParticipantTypeMap } from "./Participant";
 import { Tiebreaker } from "./tiebreaker/Tiebreaker";
 import { PreferenceList, RankPosition } from "./PreferenceList";
 import { isArray } from "util";
@@ -19,7 +19,6 @@ export type Matching = Pair[];
 
 export default class MatchingFinder {
     public currentMatching: Matching = [];
-    private matchings: Matching[] = [];
     constructor(
         private mentors: Participant[],
         private mentees: Participant[]
@@ -37,9 +36,8 @@ export default class MatchingFinder {
         });
     }
 
-    public async run(): Promise<Matching[]> {
-        let shouldStillRun = true;
-        while(this.hasAvailableMentee() && shouldStillRun) {
+    public async run(): Promise<Matching> {
+        while(this.hasAvailableMentee()) {
             const mentee = this.getAvailableMentees().pop();
             if (!mentee) {
                 throw new Error("no available mentees")
@@ -67,10 +65,7 @@ export default class MatchingFinder {
                 await this.menteeProposeToParticipant(mentee, nextMentorInRank.unique);
             }
         }
-        if (shouldStillRun) {
-            this.matchings.push(this.currentMatching)
-        }
-        return this.matchings;
+        return this.currentMatching;
     }
 
     private addBackOtherMentorsToMenteePreferenceList(mentee: Participant, proposedMentor: Participant, rank: RankPosition): void {
