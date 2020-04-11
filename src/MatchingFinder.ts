@@ -2,7 +2,6 @@ import * as _ from "lodash";
 import { Participant, PairParticipantTypeMap, ParticipantType } from "./Participant";
 import { Tiebreaker } from "./tiebreaker/Tiebreaker";
 import { PreferenceList, RankPosition } from "./PreferenceList";
-import { type } from "os";
 import { isArray } from "util";
 const readline = require('readline');
 
@@ -45,17 +44,25 @@ export default class MatchingFinder {
             if (!mentee) {
                 throw new Error("no available mentees")
             }
-            const nextMentorInRank = mentee.preferenceList.pop();
+            let nextMentorInRank = mentee.preferenceList.pop();
             if (!nextMentorInRank) {
                 console.log(mentee.name)
                 throw new Error("no available mentor")
             }
 
             if (nextMentorInRank.set) {
-                const indexAnswer = await this.askToUserWhoUse(mentee, nextMentorInRank);
-                const chosenMentor = nextMentorInRank.set[indexAnswer];
-                this.addBackOtherMentorsToMenteePreferenceList(mentee, chosenMentor, nextMentorInRank);
-                await this.menteeProposeToParticipant(mentee, chosenMentor);
+                nextMentorInRank = this.predictTheRejectionAndJumpIt(mentee, nextMentorInRank);
+                if (nextMentorInRank.set && nextMentorInRank.set.length !== 0) {
+                    let chosenMentor;
+                    if (nextMentorInRank.set.length === 1) {
+                        chosenMentor = nextMentorInRank.set[0];
+                    } else {
+                        const indexAnswer = await this.askToUserWhoUse(mentee, nextMentorInRank);
+                        chosenMentor = nextMentorInRank.set[indexAnswer];
+                        this.addBackOtherMentorsToMenteePreferenceList(mentee, chosenMentor, nextMentorInRank);
+                    }
+                    await this.menteeProposeToParticipant(mentee, chosenMentor);
+                }
             } else if (nextMentorInRank.unique) {
                 await this.menteeProposeToParticipant(mentee, nextMentorInRank.unique);
             }
@@ -133,5 +140,23 @@ export default class MatchingFinder {
 
     private isSameParticipant(participant1: Participant, participant2: Participant): boolean {
         return participant1.name === participant2.name;
+    }
+
+    private predictTheRejectionAndJumpIt(mentee: Participant, rank: RankPosition): RankPosition {
+        rank.set!.forEach((mentor, index) => {
+            if (this.isMentorGoingToRejectThePropose(mentor, mentee)) {
+                mentee.proposedToParticipant.push(mentor);
+                delete rank.set![index];                
+            }
+        });
+        rank.set = _.compact(rank.set!);
+        return rank;
+    }
+
+    private isMentorGoingToRejectThePropose(mentor: Participant, mentee: Participant): boolean {
+        if (this.isParticipantFree(mentor)) return false;
+        const currentMentee = this.getCurrentParticipantOfParticipant(mentor)!;
+        const favoriteParticipant = mentor.whoPrefer(currentMentee, mentee);
+        return !isArray(favoriteParticipant) && favoriteParticipant === currentMentee;
     }
  }
