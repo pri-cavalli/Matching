@@ -5,7 +5,7 @@ import { VoteClassificationTiebreaker } from "./tiebreaker/VoteClassificationTie
 import { OptionsPreferenceTiebreaker } from "./tiebreaker/OptionsPreferenceTiebreaker";
 import { StartDateTiebreaker, TimeTiebreakType } from "./tiebreaker/StartDateTiebreaker";
 import { FirstOptionTiebreaker } from "./tiebreaker/FirstOptionTiebreaker";
-import { MostDesiredTiebreaker } from "./tiebreaker/MostDesiredTiebreaker";
+import { DesiredTiebreaker, DesiredTiebreakerType } from "./tiebreaker/DesiredTiebreaker";
 
 export function main(): void {
     const voteClassificationTiebreaker = new VoteClassificationTiebreaker();
@@ -13,10 +13,11 @@ export function main(): void {
     const oldestStartDateTiebreaker = new StartDateTiebreaker(TimeTiebreakType.Oldest, new Date(2019, 4));
     const newestStartDateTiebreaker = new StartDateTiebreaker(TimeTiebreakType.Newest, new Date(2019, 12));
     const firstOptionTiebreaker = new FirstOptionTiebreaker();
-    const mostDesiredOptionTiebreaker = new MostDesiredTiebreaker(mentors, mentees);
+    const mostDesiredOptionTiebreaker = new DesiredTiebreaker(mentors, mentees, DesiredTiebreakerType.MostDesired);
+    const mostUndesiredOptionTiebreaker = new DesiredTiebreaker(mentors, mentees, DesiredTiebreakerType.MostUndesired);
     
-    const menteesTiebreakers = [voteClassificationTiebreaker, optionsPreferenceTiebreaker, mostDesiredOptionTiebreaker];
-    const mentorsTiebreakers = [voteClassificationTiebreaker, optionsPreferenceTiebreaker, oldestStartDateTiebreaker, newestStartDateTiebreaker];
+    const menteesTiebreakers = [voteClassificationTiebreaker, optionsPreferenceTiebreaker, mostUndesiredOptionTiebreaker, firstOptionTiebreaker];
+    const mentorsTiebreakers = [voteClassificationTiebreaker, optionsPreferenceTiebreaker, oldestStartDateTiebreaker, newestStartDateTiebreaker, mostUndesiredOptionTiebreaker, firstOptionTiebreaker];
     
     
     const matching = new MatchingFinder(mentors, mentees);

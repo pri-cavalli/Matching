@@ -20,14 +20,12 @@ describe("StartDateTiebreaker tests", () => {
     });
   describe("run", () => {
       it("should return null when the options are zero", () => {
-          expect(
-              oldestStartDateTiebreaker.run([])
-          ).to.be.null;                
+          expect(oldestStartDateTiebreaker.run([])).to.be.null;       
+          expect(newestStartDateTiebreaker.run([])).to.be.null;               
       });
       it("should return the mentee when options have only one mentee", () => {
-          expect(
-              oldestStartDateTiebreaker.run([mentee1])
-          ).to.be.equal(mentee1);                
+          expect(oldestStartDateTiebreaker.run([mentee1])).to.be.equal(mentee1);     
+          expect(newestStartDateTiebreaker.run([mentee1])).to.be.equal(mentee1);              
       });
     describe("using oldest time tiebreak type", () => {
         it("should return the oldest mentee when options have more than one mentee", () => {

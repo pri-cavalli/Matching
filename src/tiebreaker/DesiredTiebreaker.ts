@@ -3,9 +3,14 @@ import { Participant } from "../Participant";
 import { VoteClassification, VotesNumber } from "../Vote";
 import _ from "lodash";
 
-export class MostDesiredTiebreaker extends Tiebreaker {
+export enum DesiredTiebreakerType {
+    MostDesired = "MostDesired",
+    MostUndesired = "MostUndesired"
+}
+
+export class DesiredTiebreaker extends Tiebreaker {
     private participantAndReceivedVotesMap: {[key: string]: VotesNumber} = {};
-    constructor(allMentors: Participant[], allMentees: Participant[]) {
+    constructor(allMentors: Participant[], allMentees: Participant[], private desiredTiebreakType: DesiredTiebreakerType) {
         super();
         allMentees.forEach(mentee => this.countClassificationVotesInTheParticipant(mentee, allMentors));
         allMentors.forEach(mentor => this.countClassificationVotesInTheParticipant(mentor, allMentees));        
@@ -16,11 +21,7 @@ export class MostDesiredTiebreaker extends Tiebreaker {
             return options;
         }
 
-        const sortedOptions = options.sort((a,b) => 
-            this.participantAndReceivedVotesMap[a.name].Green === this.participantAndReceivedVotesMap[b.name].Green ? 
-                this.participantAndReceivedVotesMap[b.name].Yellow - this.participantAndReceivedVotesMap[a.name].Yellow :
-                this.participantAndReceivedVotesMap[b.name].Green - this.participantAndReceivedVotesMap[a.name].Green
-        );
+        const sortedOptions = options.sort(this.sort);
         const mostDesiredParticipants = sortedOptions.filter(p => 
             _.isEqual(this.participantAndReceivedVotesMap[sortedOptions[0].name], this.participantAndReceivedVotesMap[p.name]));
         
@@ -36,6 +37,18 @@ export class MostDesiredTiebreaker extends Tiebreaker {
         }, { Green: 0, Yellow: 0, Red: 0 });
 
         this.participantAndReceivedVotesMap[participant.name] = votesNumber;
+    }
+
+    private sort = (option1: Participant, option2: Participant) => {
+        const map = this.participantAndReceivedVotesMap;
+        if (this.desiredTiebreakType === DesiredTiebreakerType.MostDesired) {
+            return map[option1.name].Green === map[option2.name].Green ? 
+                map[option2.name].Yellow - map[option1.name].Yellow :
+                map[option2.name].Green - map[option1.name].Green
+        }
+         return map[option1.name].Green === map[option2.name].Green ? 
+            map[option1.name].Yellow - map[option2.name].Yellow :
+            map[option1.name].Green - map[option2.name].Green
     }
 
 }
