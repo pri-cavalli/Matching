@@ -4,13 +4,13 @@ import { Display } from "./MatchingDisplayer";
 import { VoteClassificationTiebreaker } from "./tiebreaker/VoteClassificationTiebreaker";
 import { OptionsPreferenceTiebreaker } from "./tiebreaker/OptionsPreferenceTiebreaker";
 import { OldestStartDateTiebreaker } from "./tiebreaker/OldestStartDateTiebreaker";
-import { GetFirstOptionTiebreaker } from "./tiebreaker/GetFirstOptionTiebreaker";
+import { FirstOptionTiebreaker } from "./tiebreaker/FirstOptionTiebreaker";
 import { MostDesiredParticipantTiebreaker } from "./tiebreaker/MostDesiredParticipantTiebreaker";
 
 const voteClassificationTiebreaker = new VoteClassificationTiebreaker();
 const optionsPreferenceTiebreaker = new OptionsPreferenceTiebreaker();
 const oldestStartDateTiebreaker = new OldestStartDateTiebreaker(new Date(2019, 4));
-const getFirstOptionTiebreaker = new GetFirstOptionTiebreaker();
+const firstOptionTiebreaker = new FirstOptionTiebreaker();
 const mostDesiredOptionTiebreaker = new MostDesiredParticipantTiebreaker(mentors, mentees);
 
 const menteesTiebreakers = [voteClassificationTiebreaker, optionsPreferenceTiebreaker, mostDesiredOptionTiebreaker];

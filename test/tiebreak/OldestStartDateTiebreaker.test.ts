@@ -5,7 +5,7 @@ import { Participant, ParticipantType } from "../../src/Participant";
 
 let mentor1: Participant, mentor2: Participant, mentor3: Participant, oldestMentor: Participant, oldestMentor2: Participant;
 let oldestStartDateTiebreaker = new OldestStartDateTiebreaker();
-describe.only("OldestStartDateTiebreaker tests", () => {
+describe("OldestStartDateTiebreaker tests", () => {
     beforeEach(() => {
         mentor1 = new Participant(ParticipantType.Mentor, "mentor1", new Date(2020, 1), {})
         mentor2 = new Participant(ParticipantType.Mentor, "mentor2", new Date(2020, 1), {})

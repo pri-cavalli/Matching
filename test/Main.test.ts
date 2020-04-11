@@ -5,7 +5,7 @@ import { Display } from "../src/MatchingDisplayer";
 import { OptionsPreferenceTiebreaker } from "../src/tiebreaker/OptionsPreferenceTiebreaker";
 import { VoteClassificationTiebreaker } from "../src/tiebreaker/VoteClassificationTiebreaker";
 import { OldestStartDateTiebreaker } from "../src/tiebreaker/OldestStartDateTiebreaker";
-import { GetFirstOptionTiebreaker } from "../src/tiebreaker/GetFirstOptionTiebreaker";
+import { FirstOptionTiebreaker } from "../src/tiebreaker/FirstOptionTiebreaker";
 import { MostDesiredParticipantTiebreaker } from "../src/tiebreaker/MostDesiredParticipantTiebreaker";
 
 describe("Main tests", async () => {
@@ -13,7 +13,7 @@ describe("Main tests", async () => {
     const voteClassificationTiebreaker = new VoteClassificationTiebreaker();
     const optionsPreferenceTiebreaker = new OptionsPreferenceTiebreaker();
     const oldestStartDateTiebreaker = new OldestStartDateTiebreaker();
-    const getFirstOptionTiebreaker = new GetFirstOptionTiebreaker();
+    const firstOptionTiebreaker = new FirstOptionTiebreaker();
     const mostDesiredOptionTiebreaker = new MostDesiredParticipantTiebreaker(mentors, mentees);
 
     const menteesTiebreakers = [voteClassificationTiebreaker, optionsPreferenceTiebreaker, mostDesiredOptionTiebreaker]//, getFirstOptionTiebreaker);
