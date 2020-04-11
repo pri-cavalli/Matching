@@ -1,7 +1,7 @@
 import "mocha";
 import { main } from "../src/Main";
 
-describe.only("Main tests", async () => {
+describe("Main tests", async () => {
   it("", async () => {
     main();
   });
