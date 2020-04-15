@@ -11,14 +11,31 @@ export const PairParticipantTypeMap: {[key in ParticipantType]: ParticipantType}
 }
 
 export interface WorkedWith {
-    participant: string;
-    mentorshipStartDate: Date;
+    [participantName: string]: number
 }
 
-export interface Participant {
-    type: ParticipantType;
-    name: string;
-    startDate: Date;
-    votes: Votes;
-    workedWith: WorkedWith[];
+export class Participant {
+    constructor(
+    public type: ParticipantType,
+    public name: string,
+    public startDate: Date,
+    public votes: Votes,
+    public workedWith: WorkedWith
+    ) {}
+
+    public isHisFirstMatching(): boolean {
+        return Object.keys(this.workedWith).length === 0;
+    }
+
+    public isOldForAMentee(): boolean {
+        const oneYearAndFourMonths = 365 + 121;
+        return dateDiffInDays(new Date(), this.startDate) > oneYearAndFourMonths;
+    }
+}
+
+const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+function dateDiffInDays(a: Date, b: Date) {
+  const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
 }

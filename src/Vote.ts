@@ -7,9 +7,3 @@ export enum VoteClassification {
     Yellow = "Yellow",
     Red = "Red"
 }
-
-export interface VotesNumber {
-    [VoteClassification.Green]: number,
-    [VoteClassification.Yellow]: number,
-    [VoteClassification.Red]: number
-}
