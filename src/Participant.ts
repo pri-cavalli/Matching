@@ -1,4 +1,3 @@
-import * as _ from "lodash";
 import { Votes } from "./Vote";
 
 export enum ParticipantType {
