@@ -9,8 +9,10 @@ export class Matrix {
 
     constructor(public size: number) { }
 
-    public addCell(mentor: Participant, mentee: Participant, weight: number): void {
-        if (!this.value[mentor.name]) this.value[mentor.name] = {};
-        this.value[mentor.name][mentee.name] = weight;
+    public addCell(mentor: Participant | string, mentee: Participant | string, weight: number): void {
+        const mentorName = mentor instanceof Participant ? mentor.name : mentor;
+        const menteeName = mentee instanceof Participant ? mentee.name : mentee;
+        if (!this.value[mentorName]) this.value[mentorName] = {};
+        this.value[mentorName][menteeName] = weight;
     }
 }

@@ -7,3 +7,9 @@ export enum VoteClassification {
     Yellow = "Yellow",
     Red = "Red"
 }
+
+export interface VotesNumber {
+    Green: number,
+    Yellow: number,
+    Red: number
+}
