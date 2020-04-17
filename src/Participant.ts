@@ -28,8 +28,8 @@ export class Participant {
     }
 
     public isOldForAMentee(): boolean {
-        const oneYearAndFourMonths = 365 + 121;
-        return dateDiffInDays(new Date(), this.startDate) > oneYearAndFourMonths;
+        const thirteenMonths = 365 + 60;
+        return dateDiffInDays(new Date(), this.startDate) > thirteenMonths;
     }
 }
 

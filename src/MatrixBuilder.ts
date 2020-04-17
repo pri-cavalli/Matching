@@ -10,10 +10,8 @@ const VotesWeight = {
 const WorkedWithWeight = 1;
 
 const OpinionWeight = {
-    MentorDefault: 9,
-    MenteeDefault: 11,
-    Minor: 7,
-    High: 13
+    Minor: 8,
+    High: 12
 }
 const PriorityBonusWeight = 1.1;
 
@@ -35,7 +33,7 @@ export namespace MatrixBuilder {
             return WorkedWithWeight;
         }
         const { weightOfMenteeOpinion, weightOfMentorOpinion, bonus} = calculateOptionWeightsAndBonus(mentor, mentee);
-        return Math.floor((VotesWeight[mentor.votes[mentee.name]] * weightOfMentorOpinion +
+        return Math.ceil((VotesWeight[mentor.votes[mentee.name]] * weightOfMentorOpinion +
                VotesWeight[mentee.votes[mentor.name]] * weightOfMenteeOpinion) * 
                bonus);
     }
@@ -48,18 +46,12 @@ export namespace MatrixBuilder {
         mentor: Participant, mentee: Participant
     ): {weightOfMentorOpinion: number, weightOfMenteeOpinion: number, bonus: number} {
 
-        let weightOfMenteeOpinion = OpinionWeight.MenteeDefault;
-        let weightOfMentorOpinion = OpinionWeight.MentorDefault;
+        let weightOfMenteeOpinion = OpinionWeight.High;
+        let weightOfMentorOpinion = OpinionWeight.Minor;
         let bonus = 1;
-        if (mentee.isOldForAMentee()) {
-            weightOfMenteeOpinion = OpinionWeight.Minor;
-            weightOfMentorOpinion = OpinionWeight.High;
+        if (mentee.isOldForAMentee() || mentee.isHisFirstMatching()) {
             bonus = PriorityBonusWeight;
-        } 
-        // else if (mentee.isHisFirstMatching()) {
-        //     weightOfMenteeOpinion = OpinionWeight.High;
-        //     weightOfMentorOpinion = OpinionWeight.Minor;
-        // }
+        }
         return { weightOfMenteeOpinion, weightOfMentorOpinion, bonus};
     }
 }
