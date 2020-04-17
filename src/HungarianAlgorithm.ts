@@ -65,24 +65,6 @@ export class HungarianAlgorithm {
     }
 
     private step1(): GoTo {
-        this.subRowByItsMinimumValue();
-        this.subColumnByItsMinimumValue();
-        return GoTo.Step2;
-    }
-    
-    private subRowByItsMinimumValue(): void {
-        this.mentorNames.forEach(mentor => {
-            const min = _.minBy(
-                _.toPairs(this.matrix.value[mentor]),
-                ([_, value]) => value
-            )!;
-            this.menteeNames.forEach(mentee => {
-                this.matrix.value[mentor][mentee] -= min[1];
-            });
-        });
-    }
-    
-    private subColumnByItsMinimumValue(): void {
         this.menteeNames.forEach(mentee => {
             let min = MaxNumber;
             this.mentorNames.forEach(mentor => {
@@ -92,6 +74,7 @@ export class HungarianAlgorithm {
                 this.matrix.value[mentor][mentee] -= min;
             });
         });
+        return GoTo.Step2;
     }
 
     private step2(): GoTo {
@@ -233,7 +216,7 @@ export class HungarianAlgorithm {
                 if (this.coveredMentees[mentee]) {
                     this.matrix.value[mentor][mentee] += min;
                 }
-                if (!this.coveredMentors[mentee]) {
+                if (!this.coveredMentors[mentor]) {
                     this.matrix.value[mentor][mentee] -= min;
                 }
             });

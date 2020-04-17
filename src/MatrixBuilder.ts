@@ -10,12 +10,12 @@ const VotesWeight = {
 const WorkedWithWeight = 1;
 
 const OpinionWeight = {
-    MentorDefault: 10,
-    MenteeDefault: 10,
+    MentorDefault: 9,
+    MenteeDefault: 11,
     Minor: 7,
     High: 13
 }
-// const PriorityBonusWeight = 1.1;
+const PriorityBonusWeight = 1.1;
 
 export namespace MatrixBuilder {
     export function build(mentors: Participant[], mentees: Participant[]): Matrix {
@@ -34,7 +34,7 @@ export namespace MatrixBuilder {
         if (alreadyWorkedTogether(mentor, mentee)) {
             return WorkedWithWeight;
         }
-        const { weightOfMenteeOpinion, weightOfMentorOpinion, bonus} = calculateOptionWeightsAndBonus();
+        const { weightOfMenteeOpinion, weightOfMentorOpinion, bonus} = calculateOptionWeightsAndBonus(mentor, mentee);
         return Math.floor((VotesWeight[mentor.votes[mentee.name]] * weightOfMentorOpinion +
                VotesWeight[mentee.votes[mentor.name]] * weightOfMenteeOpinion) * 
                bonus);
@@ -45,17 +45,17 @@ export namespace MatrixBuilder {
     }
 
     function calculateOptionWeightsAndBonus(
-        // mentor: Participant, mentee: Participant
+        mentor: Participant, mentee: Participant
     ): {weightOfMentorOpinion: number, weightOfMenteeOpinion: number, bonus: number} {
 
         let weightOfMenteeOpinion = OpinionWeight.MenteeDefault;
         let weightOfMentorOpinion = OpinionWeight.MentorDefault;
         let bonus = 1;
-        // if (mentee.isOldForAMentee()) {
-        //     weightOfMenteeOpinion = OpinionWeight.Minor;
-        //     weightOfMentorOpinion = OpinionWeight.High;
-        //     bonus = PriorityBonusWeight;
-        // } 
+        if (mentee.isOldForAMentee()) {
+            weightOfMenteeOpinion = OpinionWeight.Minor;
+            weightOfMentorOpinion = OpinionWeight.High;
+            bonus = PriorityBonusWeight;
+        } 
         // else if (mentee.isHisFirstMatching()) {
         //     weightOfMenteeOpinion = OpinionWeight.High;
         //     weightOfMentorOpinion = OpinionWeight.Minor;
