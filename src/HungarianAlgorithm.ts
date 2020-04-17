@@ -8,14 +8,15 @@ export interface Pair {
 }
 export type Matching = Pair[];
 
-const GoTo = {
-    Step1: 1,
-    Step2: 2,
-    Step3: 3,
-    Step4: 4,
-    Step5: 5,
-    Step6: 6,
-    End: 0
+enum GoTo {
+    Step1 = "Step 1",
+    Step2 = "Step 2",
+    Step3 = "Step 3",
+    Step4 = "Step 4",
+    Step5 = "Step 5",
+    Step6 = "Step 6",
+    LastStep = "Last Step",
+    End = "End"
 }
 
 enum MarkValue {
@@ -34,6 +35,17 @@ export class HungarianAlgorithm {
     private marks = new Matrix(0);
     private matching: Matching = [];
 
+    private readonly MapExecutions = {
+        [GoTo.Step1]: () => this.step1(),
+        [GoTo.Step2]: () => this.step2(),
+        [GoTo.Step3]: () => this.step3(),
+        [GoTo.Step4]: () => this.step4(),
+        [GoTo.Step5]: () => this.step5(),
+        [GoTo.Step6]: () => this.step6(),
+        [GoTo.LastStep]: () => this.lastStep(),
+        [GoTo.End]: () => {}
+    }
+
     constructor(private matrix: Matrix, mentors: Participant[], mentees: Participant[]) {
         this.menteeNames = mentees.map(m => m.name);
         this.mentorNames = mentors.map(m => m.name);
@@ -46,43 +58,13 @@ export class HungarianAlgorithm {
 
     public findAssignments(): Matching {
         let nextStep = GoTo.Step1;
-        while(nextStep > GoTo.End) {
-            switch (nextStep) {
-                case 1:
-                    nextStep = this.step1();
-                    break;
-                case 2:
-                    nextStep = this.step2();
-                    break;
-                case 3:
-                    nextStep = this.step3();
-                    break;
-                case 4:
-                    nextStep = this.step4();
-                    break;
-                case 5:
-                    nextStep = this.step5();
-                    break;
-                case 6:
-                    nextStep = this.step6();
-                    break;
-            
-                default:
-                    break;
-            }
+        while(nextStep !== GoTo.End) {
+            nextStep = this.MapExecutions[nextStep]();
         }
-        this.matching = [];
-        this.mentorNames.forEach(mentor => {
-            this.menteeNames.forEach(mentee => {
-                if(this.marks.value[mentor][mentee] === MarkValue.Zero) {
-                    this.matching.push({mentor, mentee});
-                }
-            });
-        });
         return this.matching;
     }
 
-    private step1(): number {
+    private step1(): GoTo {
         this.subRowByItsMinimumValue();
         this.subColumnByItsMinimumValue();
         return GoTo.Step2;
@@ -112,7 +94,7 @@ export class HungarianAlgorithm {
         });
     }
 
-    private step2(): number {
+    private step2(): GoTo {
         this.mentorNames.forEach(mentor => {
             if (!this.coveredMentors[mentor]) {
                 this.menteeNames.every(mentee => {
@@ -135,7 +117,7 @@ export class HungarianAlgorithm {
         this.coveredMentors = {};
     }
 
-    private step3(): number {
+    private step3(): GoTo {
         let coveredMentorsNumber = 0;
         this.mentorNames.forEach(mentor => {
             if (this.marks.value[mentor] &&
@@ -144,11 +126,11 @@ export class HungarianAlgorithm {
                 coveredMentorsNumber++;
             }
         });
-        if (coveredMentorsNumber >= this.matrix.size) return GoTo.End;
+        if (coveredMentorsNumber >= this.matrix.size) return GoTo.LastStep;
         return GoTo.Step4;
     }
 
-    private step4(): number {
+    private step4(): GoTo {
         while(true) {
             const zeroLocation = this.findZero();
             if (!zeroLocation) {
@@ -198,7 +180,7 @@ export class HungarianAlgorithm {
         return undefined;
     }
 
-    private step5(): number {
+    private step5(): GoTo {
         let count = 0;
 
         while(true) {
@@ -244,7 +226,7 @@ export class HungarianAlgorithm {
 
     }
 
-    private step6(): number {
+    private step6(): GoTo {
         const min = this.findMinUncovered();
         this.mentorNames.forEach(mentor => {
             this.menteeNames.forEach(mentee => {
@@ -273,7 +255,17 @@ export class HungarianAlgorithm {
         return min;
     }
 
-
+    private lastStep(): GoTo {        
+        this.matching = [];
+        this.mentorNames.forEach(mentor => {
+            this.menteeNames.forEach(mentee => {
+                if(this.marks.value[mentor][mentee] === MarkValue.Zero) {
+                    this.matching.push({mentor, mentee});
+                }
+            });
+        });
+        return GoTo.End;
+    }
 }
 
 /*
