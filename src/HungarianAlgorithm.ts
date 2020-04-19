@@ -20,12 +20,12 @@ enum GoTo {
 }
 
 enum MarkValue {
-    "Zero" = 1,
-    "Pivot" = 2,
+    "Star" = 1,
+    "Prime" = 2,
     "None" = 0
 }
 
-const MaxNumber = 999999999;
+export const MaxNumber = 999999999;
 
 export class HungarianAlgorithm {
     private mentorNames: string[];
@@ -65,12 +65,12 @@ export class HungarianAlgorithm {
     }
 
     private step1(): GoTo {
-        this.menteeNames.forEach(mentee => {
+        this.mentorNames.forEach(mentor => {
             let min = MaxNumber;
-            this.mentorNames.forEach(mentor => {
+            this.menteeNames.forEach(mentee => {
                 min = Math.min(min, this.matrix.value[mentor][mentee])
             });
-            this.mentorNames.forEach(mentor => {
+            this.menteeNames.forEach(mentee => {
                 this.matrix.value[mentor][mentee] -= min;
             });
         });
@@ -82,7 +82,7 @@ export class HungarianAlgorithm {
             if (!this.coveredMentors[mentor]) {
                 this.menteeNames.every(mentee => {
                     if (!this.coveredMentees[mentee] && this.matrix.value[mentor][mentee] === 0) {
-                        this.marks.addCell(mentor, mentee, MarkValue.Zero);
+                        this.marks.addCell(mentor, mentee, MarkValue.Star);
                         this.coveredMentors[mentor] = true;
                         this.coveredMentees[mentee] = true;
                         return false; //break
@@ -101,16 +101,25 @@ export class HungarianAlgorithm {
     }
 
     private step3(): GoTo {
-        let coveredMentorsNumber = 0;
-        this.mentorNames.forEach(mentor => {
-            if (this.marks.value[mentor] &&
-                Object.values(this.marks.value[mentor]).some(mark => mark === MarkValue.Zero)) {
-                this.coveredMentors[mentor] = true;
-                coveredMentorsNumber++;
+        let count = 0;
+        this.menteeNames.forEach(mentee => {
+            if (this.manteeHasStar(mentee)) {
+                this.coveredMentees[mentee] = true;
+                count++;
             }
         });
-        if (coveredMentorsNumber >= this.matrix.size) return GoTo.LastStep;
+        if (count >= this.matrix.size) return GoTo.LastStep;
         return GoTo.Step4;
+    }
+
+    private manteeHasStar(mentee: string): boolean {
+        for(let mentor of this.mentorNames) {
+            if (this.marks.value[mentor] &&
+                this.marks.value[mentor][mentee] === MarkValue.Star) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private step4(): GoTo {
@@ -119,12 +128,12 @@ export class HungarianAlgorithm {
             if (!zeroLocation) {
                 return GoTo.Step6;
             }
-            this.marks.addCell(zeroLocation.mentor, zeroLocation.mentee, MarkValue.Pivot);
-            const zeroMentor = this.findMentorThatHasMarkWithMentee(zeroLocation.mentee, MarkValue.Zero);
+            this.marks.addCell(zeroLocation.mentor, zeroLocation.mentee, MarkValue.Prime);
+            const zeroMentee = this.findMenteeThatHasMarkWithMentor(zeroLocation.mentor , MarkValue.Star);
 
-            if (zeroMentor) {
-                this.coveredMentees[zeroLocation.mentee] = true;
-                this.coveredMentors[zeroMentor] = false
+            if (zeroMentee) {
+                this.coveredMentors[zeroLocation.mentor] = true;
+                this.coveredMentees[zeroMentee] = false
             } else {
                 this.matching[0] = zeroLocation;
                 return GoTo.Step5;
@@ -155,8 +164,9 @@ export class HungarianAlgorithm {
     }
 
     private findMenteeThatHasMarkWithMentor(mentor: string, markValue: MarkValue): string | undefined {
+        if (!this.marks.value[mentor]) return undefined;
         for (let mentee of this.menteeNames) {
-            if (this.marks.value[mentor] && this.marks.value[mentor][mentee] === markValue) {
+            if (this.marks.value[mentor][mentee] === markValue) {
                 return mentee;
             }
         };
@@ -167,41 +177,39 @@ export class HungarianAlgorithm {
         let count = 0;
 
         while(true) {
-            let mentor: string | undefined = this.matching[count].mentor;
-            let mentee = this.findMenteeThatHasMarkWithMentor(mentor, MarkValue.Zero);
-            if (mentee) {
+            let mentee: string | undefined = this.matching[count].mentee;
+            let mentor = this.findMentorThatHasMarkWithMentee(mentee, MarkValue.Star);
+            if (mentor) {
                 count++;
                 this.matching[count] = { mentee, mentor };
 
-                mentee = this.matching[count].mentee;
-                mentor = this.findMentorThatHasMarkWithMentee(mentee, MarkValue.Pivot);
-                if (!mentor) {
-                    debugger
+                mentee = this.findMenteeThatHasMarkWithMentor(mentor, MarkValue.Prime);
+                if (!mentee) {
                     throw new Error("should not happen")
                 }
                 count++;
                 this.matching[count] = { mentee, mentor };
             } else {
                 this.matching.forEach(pair => {
-                    if (this.marks.value[pair.mentor][pair.mentee] === MarkValue.Zero) {
+                    if (this.marks.value[pair.mentor][pair.mentee] === MarkValue.Star) {
                         this.marks.value[pair.mentor][pair.mentee] = MarkValue.None;
                     } else {
-                        this.marks.value[pair.mentor][pair.mentee] = MarkValue.Zero;
+                        this.marks.value[pair.mentor][pair.mentee] = MarkValue.Star;
                     }
                 });
 
                 this.clearCovered();
-                this.clearPivotsInMarks();
+                this.clearPrimesInMarks();
                 return GoTo.Step3;
             }
 
         }
     }
 
-    private clearPivotsInMarks(): void {
+    private clearPrimesInMarks(): void {
         this.mentorNames.forEach(mentor => {
             this.menteeNames.forEach(mentee => {
-                if(this.marks.value[mentor] && this.marks.value[mentor][mentee] === MarkValue.Pivot) {
+                if(this.marks.value[mentor] && this.marks.value[mentor][mentee] === MarkValue.Prime) {
                     this.marks.value[mentor][mentee] = MarkValue.None;
                 }
             });
@@ -213,10 +221,10 @@ export class HungarianAlgorithm {
         const min = this.findMinUncovered();
         this.mentorNames.forEach(mentor => {
             this.menteeNames.forEach(mentee => {
-                if (this.coveredMentees[mentee]) {
+                if (this.coveredMentors[mentor]) {
                     this.matrix.value[mentor][mentee] += min;
                 }
-                if (!this.coveredMentors[mentor]) {
+                if (!this.coveredMentees[mentee]) {
                     this.matrix.value[mentor][mentee] -= min;
                 }
             });
@@ -242,7 +250,7 @@ export class HungarianAlgorithm {
         this.matching = [];
         this.mentorNames.forEach(mentor => {
             this.menteeNames.forEach(mentee => {
-                if(this.marks.value[mentor][mentee] === MarkValue.Zero) {
+                if(this.marks.value[mentor] && this.marks.value[mentor][mentee] === MarkValue.Star) {
                     this.matching.push({mentor, mentee});
                 }
             });
