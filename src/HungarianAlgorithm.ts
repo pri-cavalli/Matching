@@ -135,7 +135,7 @@ export class HungarianAlgorithm {
                 this.coveredMentors[zeroLocation.mentor] = true;
                 this.coveredMentees[zeroMentee] = false
             } else {
-                this.matching[0] = zeroLocation;
+                this.matching = [zeroLocation];
                 return GoTo.Step5;
             }
         }
