@@ -1,16 +1,21 @@
 import * as _ from "lodash";
 import { VoteClassification, VotesNumber } from "./Vote";
 import { Participant } from "./Participant";
-export interface Pair {
+import { Matching } from "./HungarianAlgorithm";
+interface Pair {
     mentor: Participant,
     mentee: Participant
 }
-export type Matching = Pair[];
 
 export namespace Display {
-    export function matching(matching: Matching): void {
-        const pairs = matching.reduce(simplifyPair, {});
-        const votesNumber = matching.reduce(countVotes, { Green: 0, Yellow: 0, Red: 0 });
+    export function matching(matching: Matching, mentors: Participant[], mentees: Participant[]): void {
+        const matchingObjs = matching.map(({mentor, mentee}) => {
+            const mentorObj = mentors.find(m => m.name === mentor)!;
+            const menteeObj = mentees.find(m => m.name === mentee)!;
+            return {mentor: mentorObj, mentee: menteeObj};
+        })
+        const pairs = matchingObjs.reduce(simplifyPair, {});
+        const votesNumber = matchingObjs.reduce(countVotes, { Green: 0, Yellow: 0, Red: 0 });
         const simplifyMatching = {...pairs, votesNumber};
         console.log("--------------------------------- Matching ---------------------------------")
         console.log(simplifyMatching)

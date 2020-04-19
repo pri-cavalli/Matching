@@ -2,18 +2,15 @@ import { MatrixBuilder } from "./MatrixBuilder";
 import { mentors, mentees } from "./Data";
 import { HungarianAlgorithm } from "./HungarianAlgorithm";
 import { Display } from "./MatchingDisplayer";
+import { FindAllMaxMatching } from "./FindAllMaxMatching";
+import _ from "lodash";
 
 export function main(): void {
-    const matrix = MatrixBuilder.build(mentors, mentees);
+    const originalMatrix = MatrixBuilder.build(mentors, mentees);
+    const matrix = _.cloneDeep(originalMatrix);
     const matchingFinder = new HungarianAlgorithm(matrix, mentors, mentees);
-    const matching = matchingFinder.findAssignments();
-    const matchingObjs = matching.map(({mentor, mentee}) => {
-        const mentorObj = mentors.find(m => m.name === mentor)!;
-        const menteeObj = mentees.find(m => m.name === mentee)!;
-        return {mentor: mentorObj, mentee: menteeObj};
-    })
-    Display.matching(matchingObjs);
-    debugger
+    const matchings = matchingFinder.findMultipleOptimalAssignments(originalMatrix);
+    matchings.forEach(m => Display.matching(m, mentors, mentees));
 }
 
 main();

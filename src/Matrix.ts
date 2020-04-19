@@ -15,4 +15,12 @@ export class Matrix {
         if (!this.value[mentorName]) this.value[mentorName] = {};
         this.value[mentorName][menteeName] = weight;
     }
+
+    public removeMenteeAndMentor(mentee: string, mentor: string): void{
+        delete this.value[mentor];
+        Object.keys(this.value).forEach(mentor => {
+            this.value[mentor][mentee] && delete this.value[mentor][mentee];
+        });
+        this.size--;
+    }
 }

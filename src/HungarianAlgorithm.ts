@@ -56,7 +56,7 @@ export class HungarianAlgorithm {
         });
     }
 
-    public findAssignments(): Matching {
+    public findOptimalAssignments(): Matching {
         let nextStep = GoTo.Step1;
         while(nextStep !== GoTo.End) {
             nextStep = this.MapExecutions[nextStep]();
@@ -256,6 +256,54 @@ export class HungarianAlgorithm {
             });
         });
         return GoTo.End;
+    }
+
+
+    public findMultipleOptimalAssignments(originalMatrix: Matrix): Matching[] {
+        const matchings = [this.findOptimalAssignments()];
+        const maxValue = this.matching.reduce((acc, {mentor, mentee}) => {
+            acc += originalMatrix.value[mentor][mentee];
+            return acc;
+        }, 0);
+        const fixedPairs = this.getFixedPairs();
+        fixedPairs.forEach(pair => {
+            this.matrix.removeMenteeAndMentor(pair.mentee, pair.mentor);
+        });
+        
+        return matchings
+    }
+
+    private getFixedPairs(): Pair[] {
+        const fixedPairs: Pair[] = [];
+        this.mentorNames.forEach(mentor => {
+            let count = 0;
+            let lastMentee = "";
+            this.menteeNames.forEach(mentee => {
+                if (this.matrix.value[mentor][mentee] === 0) {
+                    count++;
+                    lastMentee = mentee;
+                }
+            });
+            if (count <= 1) {
+                fixedPairs.push({mentor, mentee: lastMentee});
+            }
+        });
+        this.menteeNames.forEach(mentee => {
+            if (!fixedPairs.some(pair => mentee === pair.mentee)) {
+                let count = 0;
+                let lastMentor = "";
+                this.mentorNames.forEach(mentor => {
+                    if (this.matrix.value[mentor][mentee] === 0) {
+                        count++;
+                        lastMentor = mentor;
+                    }
+                });
+                if (count <= 1) {
+                    fixedPairs.push({mentor: lastMentor, mentee});
+                }
+            }
+        });
+        return fixedPairs;
     }
 }
 
