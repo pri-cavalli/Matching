@@ -8,7 +8,11 @@ interface Pair {
 }
 
 export namespace Display {
-    export function matching(matching: Matching, mentors: Participant[], mentees: Participant[]): void {
+    export function matchings(matchings: Matching[], mentors: Participant[], mentees: Participant[]): void {
+        matchings.forEach((m, i) => matching(m, mentors, mentees, i))
+    }
+
+    function matching(matching: Matching, mentors: Participant[], mentees: Participant[], index: number): void {
         const matchingObjs = matching.map(({mentor, mentee}) => {
             const mentorObj = mentors.find(m => m.name === mentor)!;
             const menteeObj = mentees.find(m => m.name === mentee)!;
@@ -17,7 +21,7 @@ export namespace Display {
         const pairs = matchingObjs.reduce(simplifyPair, {});
         const votesNumber = matchingObjs.reduce(countVotes, { Green: 0, Yellow: 0, Red: 0 });
         const simplifyMatching = {...pairs, votesNumber};
-        console.log("--------------------------------- Matching ---------------------------------")
+        console.log("--------------------------------- Matching " + index + "---------------------------------")
         console.log(simplifyMatching)
     }
 

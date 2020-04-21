@@ -10,7 +10,7 @@ export function main(): void {
     const matrix = _.cloneDeep(originalMatrix);
     const matchingFinder = new HungarianAlgorithm(matrix, mentors, mentees);
     const matchings = matchingFinder.findMultipleOptimalAssignments(originalMatrix);
-    matchings.forEach(m => Display.matching(m, mentors, mentees));
+    Display.matchings(matchings, mentors, mentees);
 }
 
 main();
