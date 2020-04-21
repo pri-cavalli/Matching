@@ -265,20 +265,64 @@ export class HungarianAlgorithm {
             acc += originalMatrix.value[mentor][mentee];
             return acc;
         }, 0);
-        const fixedPairs = this.getFixedPairs();
-        fixedPairs.forEach(pair => {
-            this.matrix.removeMenteeAndMentor(pair.mentee, pair.mentor);
+        let fixedPairs: Pair[] = [];
+        let fixedPartialMatching: Pair[] = [];
+        do {
+            fixedPairs = this.getFixedPairs();
+            fixedPartialMatching = fixedPartialMatching.concat(fixedPairs);
+            fixedPairs.forEach(pair => {
+                this.matrix.removeMenteeAndMentor(pair.mentee, pair.mentor);
+            });
+        } while(fixedPairs.length > 0);
+
+        const flexiblePartialMatchings = this.getFlexiblePairsCombination(this.matrix);
+        const allMatchings: Matching[] = [];
+        flexiblePartialMatchings.forEach(fexiblePartialMatching => {
+            allMatchings.push(fexiblePartialMatching.concat(fixedPartialMatching));
         });
-        
-        return matchings
+
+        // todo: filter max value
+    
+        return allMatchings;
+    }
+
+    private getFlexiblePairsCombination(matrix: Matrix): Matching[] {
+
+        let allPossibleRestOfMatching: Matching[] = [];
+        if (matrix.size === 0) {
+            return [];
+        }
+        for(let mentor of Object.keys(matrix.value)) {
+            for(let mentee of Object.keys(matrix.value[mentor])) {
+                if (matrix.value[mentor][mentee] === 0) {
+                    const currentMatrix = _.cloneDeep(matrix);
+                    currentMatrix.removeMenteeAndMentor(mentee, mentor);
+                    let restOfMatching = this.getFlexiblePairsCombination(currentMatrix);
+                    if (restOfMatching.length === 0) {
+                        restOfMatching = [[{mentor, mentee}]];
+                    } else {
+                        restOfMatching = restOfMatching.map(possibleMatching => {
+                            possibleMatching.push({mentor, mentee});
+                            return possibleMatching.sort((a: Pair, b: Pair) => a.mentor > b.mentor ? 1 : -1);
+                        });
+                    }
+                    allPossibleRestOfMatching = allPossibleRestOfMatching.concat(restOfMatching);
+                }
+            };
+        };
+
+        allPossibleRestOfMatching = _.uniqBy(
+            allPossibleRestOfMatching.filter(a => matrix.size === a.length), (item: Matching) => JSON.stringify(item)
+        );
+        return allPossibleRestOfMatching;
     }
 
     private getFixedPairs(): Pair[] {
         const fixedPairs: Pair[] = [];
-        this.mentorNames.forEach(mentor => {
+        this.matrix.allMentors.forEach(mentor => {
             let count = 0;
             let lastMentee = "";
-            this.menteeNames.forEach(mentee => {
+            this.matrix.allMentees.forEach(mentee => {
                 if (this.matrix.value[mentor][mentee] === 0) {
                     count++;
                     lastMentee = mentee;
@@ -288,11 +332,11 @@ export class HungarianAlgorithm {
                 fixedPairs.push({mentor, mentee: lastMentee});
             }
         });
-        this.menteeNames.forEach(mentee => {
+        this.matrix.allMentees.forEach(mentee => {
             if (!fixedPairs.some(pair => mentee === pair.mentee)) {
                 let count = 0;
                 let lastMentor = "";
-                this.mentorNames.forEach(mentor => {
+                this.matrix.allMentors.forEach(mentor => {
                     if (this.matrix.value[mentor][mentee] === 0) {
                         count++;
                         lastMentor = mentor;
