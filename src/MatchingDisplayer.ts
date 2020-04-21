@@ -21,7 +21,7 @@ export namespace Display {
         const pairs = matchingObjs.reduce(simplifyPair, {});
         const votesNumber = matchingObjs.reduce(countVotes, { Green: 0, Yellow: 0, Red: 0 });
         const simplifyMatching = {...pairs, votesNumber};
-        console.log("--------------------------------- Matching " + index + "---------------------------------")
+        console.log("--------------------------------- Matching " + (index+1) + "---------------------------------")
         console.log(simplifyMatching)
     }
 
