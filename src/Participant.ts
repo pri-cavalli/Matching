@@ -27,7 +27,15 @@ export class Participant {
         return Object.keys(this.workedWith).length === 0;
     }
 
+    public isExperiencedForAMentor(): boolean {
+        if (this.type === ParticipantType.Mentee) throw new Error("You shouldn't use this condition for a mentee");
+        const fiveYears = 365 * 5;
+        return Object.keys(this.workedWith).length > 0 && 
+            dateDiffInDays(new Date(), this.startDate) > fiveYears;
+    }
+
     public isOldForAMentee(): boolean {
+        if (this.type === ParticipantType.Mentor) throw new Error("You shouldn't use this condition for a mentor");
         const thirteenMonths = 365 + 60;
         return dateDiffInDays(new Date(), this.startDate) > thirteenMonths;
     }

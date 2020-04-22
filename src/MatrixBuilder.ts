@@ -2,18 +2,25 @@ import { Participant } from "./Participant"
 import { Matrix } from "./Matrix";
 import { VoteClassification } from "./Vote";
 
-const VotesWeight = {
-    [VoteClassification.Green]: 70,
-    [VoteClassification.Yellow]: 50,
-    [VoteClassification.Red]: 30
+const BoundaryValue = 800;
+
+const VoteWeight = {
+    [VoteClassification.Green]: 20,
+    [VoteClassification.Yellow]: 0,
+    [VoteClassification.Red]: -20
 }
-const WorkedWithWeight = 1;
+const WorkedWithWeight = -BoundaryValue;
 
 const OpinionWeight = {
     Minor: 8,
     High: 12
 }
-const PriorityBonusWeight = 1.1;
+
+const BonusWeight = {
+    Default: 1,
+    HighPriority: 1.2,
+    VeryHighPriority: 1.6
+}
 
 export namespace MatrixBuilder {
     export function build(mentors: Participant[], mentees: Participant[]): Matrix {
@@ -22,7 +29,8 @@ export namespace MatrixBuilder {
         mentors.forEach(mentor => {
             mentees.forEach(mentee => {
                 const weight = calculateCellWeight(mentor, mentee);
-                matrix.addCell(mentor, mentee, weight);
+                const positiveWeight = makeTheRangeBeInPositiveNumbers(weight);
+                matrix.addCell(mentor, mentee, positiveWeight);
             });
         });
         return matrix;
@@ -33,8 +41,8 @@ export namespace MatrixBuilder {
             return WorkedWithWeight;
         }
         const { weightOfMenteeOpinion, weightOfMentorOpinion, bonus} = calculateOptionWeightsAndBonus(mentor, mentee);
-        return Math.ceil((VotesWeight[mentor.votes[mentee.name]] * weightOfMentorOpinion +
-               VotesWeight[mentee.votes[mentor.name]] * weightOfMenteeOpinion) * 
+        return Math.ceil((VoteWeight[mentor.votes[mentee.name]] * weightOfMentorOpinion +
+               VoteWeight[mentee.votes[mentor.name]] * weightOfMenteeOpinion) * 
                bonus);
     }
 
@@ -48,10 +56,21 @@ export namespace MatrixBuilder {
 
         let weightOfMenteeOpinion = OpinionWeight.High;
         let weightOfMentorOpinion = OpinionWeight.Minor;
-        let bonus = 1;
-        if (mentee.isOldForAMentee() || mentee.isHisFirstMatching()) {
-            bonus = PriorityBonusWeight;
+        let bonus = BonusWeight.Default;
+        if (mentee.isOldForAMentee()) {
+            bonus = BonusWeight.HighPriority;
+            if (mentor.isExperiencedForAMentor()) {
+                weightOfMentorOpinion = OpinionWeight.High;
+                weightOfMenteeOpinion = OpinionWeight.Minor;
+                bonus = BonusWeight.VeryHighPriority;
+            }
+        } else if (mentee.isHisFirstMatching()) {
+            bonus = BonusWeight.HighPriority;
         }
         return { weightOfMenteeOpinion, weightOfMentorOpinion, bonus};
+    }
+
+    function makeTheRangeBeInPositiveNumbers(value: number): number {
+        return value + BoundaryValue;
     }
 }
