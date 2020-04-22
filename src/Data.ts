@@ -243,44 +243,7 @@ const joao = new Participant(
     {name: 1}
 );
 
-
-
-
-const x1 = new Participant(
-  ParticipantType.Mentee,
-    "x1",
-    new Date(2020, 1),
-    { y1: VoteClassification.Green, y2: VoteClassification.Yellow},
-   {name: 1}
-);
-const x2 = new Participant(
-  ParticipantType.Mentee,
-    "x2",
-    new Date(2020, 1),
-    { y1: VoteClassification.Green, y2: VoteClassification.Green},
-   {name: 1}
-);
-
-const y1 = new Participant(
-  ParticipantType.Mentee,
-    "y1",
-    new Date(2020, 1),
-    { x1: VoteClassification.Yellow, x2: VoteClassification.Green},
-   {name: 1}
-);
-const y2 = new Participant(
-  ParticipantType.Mentee,
-    "y2",
-    new Date(2020, 1),
-    { x1: VoteClassification.Green, x2: VoteClassification.Green},
-   {name: 1}
-);
-
-
-
 export const mentees: Participant[] = 
-  // [x1, x2];
   [ joice, nicolas, willian, wagner, joao, henrique, felipe, athos, vinicius, giovana, pedro, natalia ];
 export const mentors: Participant[] = 
-  // [y1, y2];
   [ luis, carol, maiara, priscila, marcia, lucas, cassiano, mateus, gabriel, luan, guilherme, daniel ];

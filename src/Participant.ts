@@ -5,11 +5,6 @@ export enum ParticipantType {
     Mentor = "Mentor"
 }
 
-export const PairParticipantTypeMap: {[key in ParticipantType]: ParticipantType} = {
-    [ParticipantType.Mentor]: ParticipantType.Mentee,
-    [ParticipantType.Mentee]: ParticipantType.Mentor
-}
-
 export interface WorkedWith {
     [participantName: string]: number
 }
