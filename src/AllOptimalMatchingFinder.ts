@@ -1,10 +1,12 @@
 import { Matching, Pair } from "./HungarianAlgorithm";
 import { Matrix } from "./Matrix";
 import _ from "lodash";
-
 export namespace AllOptimalMatchingFinder {
     export function find(optimalMatching: Matching, afterHungarianMatrix: Matrix, originalMatrix: Matrix): Matching[] {        
         const fixedPartialMatching = findFixedPairs(afterHungarianMatrix);
+        if (afterHungarianMatrix.allMentees.length === 0) {
+            return [optimalMatching];
+        }
         console.log("Flexible participants:");
         console.log(afterHungarianMatrix.allMentees);
         console.log(afterHungarianMatrix.allMentors);
