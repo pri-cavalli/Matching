@@ -15,4 +15,6 @@ export function main(): void {
     Display.matchings(allOptimalMatchings, mentors, mentees);
 }
 
+console.time("execution");
 main();
+console.timeEnd("execution");
