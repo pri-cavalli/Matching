@@ -2,12 +2,12 @@ import { Participant } from "./Participant"
 import { Matrix } from "./Matrix";
 import { VoteClassification } from "./Vote";
 
-const BoundaryValue = 800;
+const BoundaryValue = 720;
 
 const VoteWeight = {
     [VoteClassification.Green]: 20,
     [VoteClassification.Yellow]: 0,
-    [VoteClassification.Red]: -20
+    [VoteClassification.Red]: -25
 }
 const WorkedWithWeight = -BoundaryValue;
 
@@ -18,8 +18,7 @@ const OpinionWeight = {
 
 const BonusWeight = {
     Default: 1,
-    HighPriority: 1.2,
-    VeryHighPriority: 1.6
+    HighPriority: 1.2
 }
 
 export namespace MatrixBuilder {
@@ -47,7 +46,7 @@ export namespace MatrixBuilder {
     }
 
     function alreadyWorkedTogether(mentor: Participant, mentee: Participant): boolean {
-        return Boolean(mentee.workedWith[mentor.name]) || Boolean(mentor.workedWith[mentee.name]);
+        return mentee.workedWith[mentor.name] || mentor.workedWith[mentee.name];
     }
 
     function calculateOptionWeightsAndBonus(
@@ -62,10 +61,7 @@ export namespace MatrixBuilder {
             if (mentor.isExperiencedForAMentor()) {
                 weightOfMentorOpinion = OpinionWeight.High;
                 weightOfMenteeOpinion = OpinionWeight.Minor;
-                bonus = BonusWeight.VeryHighPriority;
             }
-        } else if (mentee.isHisFirstMatching()) {
-            bonus = BonusWeight.HighPriority;
         }
         return { weightOfMenteeOpinion, weightOfMentorOpinion, bonus};
     }

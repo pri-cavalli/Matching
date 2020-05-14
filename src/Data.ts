@@ -10,7 +10,7 @@ const luis = new Participant(
       joao: VoteClassification.Yellow, henrique: VoteClassification.Red, felipe: VoteClassification.Red, athos: VoteClassification.Yellow, 
       vinicius: VoteClassification.Green, giovana: VoteClassification.Red, pedro: VoteClassification.Yellow, natalia: VoteClassification.Green 
     },
-    {name: 1}
+    {name: true}
 );
 const carol = new Participant(
   ParticipantType.Mentor,
@@ -20,7 +20,7 @@ const carol = new Participant(
       joao: VoteClassification.Green, henrique: VoteClassification.Yellow, felipe: VoteClassification.Yellow, athos: VoteClassification.Green, 
       vinicius: VoteClassification.Green, giovana: VoteClassification.Yellow, pedro: VoteClassification.Green, natalia: VoteClassification.Yellow 
     },
-    { joice: 1 }
+    { joice: true }
 );
 const priscila = new Participant(
   ParticipantType.Mentor,
@@ -30,7 +30,7 @@ const priscila = new Participant(
       joao: VoteClassification.Yellow, henrique: VoteClassification.Green, felipe: VoteClassification.Yellow, athos: VoteClassification.Green, 
       vinicius: VoteClassification.Yellow, giovana: VoteClassification.Green, pedro: VoteClassification.Yellow, natalia: VoteClassification.Green 
     },
-    {name: 1}
+    {name: true}
 );
 const maiara = new Participant(
   ParticipantType.Mentor,
@@ -40,7 +40,7 @@ const maiara = new Participant(
       joao: VoteClassification.Green, henrique: VoteClassification.Green, felipe: VoteClassification.Yellow, athos: VoteClassification.Red, 
       vinicius: VoteClassification.Green, giovana: VoteClassification.Yellow, pedro: VoteClassification.Yellow, natalia: VoteClassification.Green
     },
-    {name: 1}
+    {name: true}
 );
 const mateus = new Participant(
   ParticipantType.Mentor,
@@ -50,7 +50,7 @@ const mateus = new Participant(
       joao: VoteClassification.Green, henrique: VoteClassification.Red, felipe: VoteClassification.Yellow, athos: VoteClassification.Yellow, 
       vinicius: VoteClassification.Green, giovana: VoteClassification.Yellow, pedro: VoteClassification.Yellow, natalia: VoteClassification.Green
     },
-    {name: 1}
+    {name: true}
 );
 const cassiano = new Participant(
   ParticipantType.Mentor,
@@ -60,7 +60,7 @@ const cassiano = new Participant(
       joao: VoteClassification.Red, henrique: VoteClassification.Red, felipe: VoteClassification.Red, athos: VoteClassification.Green, 
        vinicius: VoteClassification.Yellow, giovana: VoteClassification.Yellow, pedro: VoteClassification.Green, natalia: VoteClassification.Green 
     },
-    {name: 1}
+    {name: true}
 );
 const lucas = new Participant(
   ParticipantType.Mentor,
@@ -70,7 +70,7 @@ const lucas = new Participant(
       joao: VoteClassification.Green, henrique: VoteClassification.Yellow, felipe: VoteClassification.Yellow, athos: VoteClassification.Red, 
       vinicius: VoteClassification.Yellow, giovana: VoteClassification.Yellow, pedro: VoteClassification.Green, natalia: VoteClassification.Green
     },
-    {name: 1}
+    {name: true}
 );
 const marcia = new Participant(
   ParticipantType.Mentor,
@@ -80,7 +80,7 @@ const marcia = new Participant(
       joao: VoteClassification.Red, henrique: VoteClassification.Yellow, felipe: VoteClassification.Green, athos: VoteClassification.Yellow, 
        vinicius: VoteClassification.Yellow, giovana: VoteClassification.Green, pedro: VoteClassification.Green, natalia: VoteClassification.Red
     },
-    { joice: 1}
+    { joice: true}
 );
  const guilherme = new Participant(
     ParticipantType.Mentor,
@@ -90,7 +90,7 @@ const marcia = new Participant(
       joao: VoteClassification.Yellow, henrique: VoteClassification.Green, felipe: VoteClassification.Green, athos: VoteClassification.Yellow, 
       vinicius: VoteClassification.Yellow, giovana: VoteClassification.Yellow, pedro: VoteClassification.Yellow, natalia: VoteClassification.Yellow 
     },
-    {name: 1}
+    {name: true}
 );
  const luan = new Participant(
    ParticipantType.Mentor,
@@ -100,7 +100,7 @@ const marcia = new Participant(
        joao: VoteClassification.Yellow, henrique: VoteClassification.Green, felipe: VoteClassification.Yellow, athos: VoteClassification.Yellow, 
        vinicius: VoteClassification.Yellow, giovana: VoteClassification.Yellow, pedro: VoteClassification.Red, natalia: VoteClassification.Red
      },
-     {name: 1}
+     {name: true}
  );
  const gabriel = new Participant(
    ParticipantType.Mentor,
@@ -110,7 +110,7 @@ const marcia = new Participant(
        joao: VoteClassification.Green, henrique: VoteClassification.Yellow, felipe: VoteClassification.Yellow, athos: VoteClassification.Green, 
        vinicius: VoteClassification.Green, giovana: VoteClassification.Yellow, pedro: VoteClassification.Yellow, natalia: VoteClassification.Green
      },
-     {name: 1}
+     {name: true}
  );
  const daniel = new Participant(
    ParticipantType.Mentor,
@@ -120,7 +120,7 @@ const marcia = new Participant(
        joao: VoteClassification.Yellow, henrique: VoteClassification.Green, felipe: VoteClassification.Yellow, athos: VoteClassification.Red, 
        vinicius: VoteClassification.Green, giovana: VoteClassification.Yellow, pedro: VoteClassification.Yellow, natalia: VoteClassification.Green
      },
-     {name: 1}
+     {name: true}
  );
 export const joice = new Participant(
   ParticipantType.Mentee,
@@ -130,7 +130,7 @@ export const joice = new Participant(
       marcia: VoteClassification.Yellow, lucas: VoteClassification.Red, cassiano: VoteClassification.Red, mateus: VoteClassification.Red,
       gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Red
     },
-     { carol: 2, marcia: 1 }
+     { carol: true, marcia: true }
 );
 const nicolas = new Participant(
   ParticipantType.Mentee,
@@ -140,7 +140,7 @@ const nicolas = new Participant(
       marcia: VoteClassification.Yellow, lucas: VoteClassification.Red, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Red,
       gabriel: VoteClassification.Yellow, luan: VoteClassification.Green, guilherme: VoteClassification.Red, daniel: VoteClassification.Yellow
     },
-    {name: 1}
+    {name: true}
 );
 const willian = new Participant(
   ParticipantType.Mentee,
@@ -150,7 +150,7 @@ const willian = new Participant(
       marcia: VoteClassification.Green, lucas: VoteClassification.Yellow, cassiano: VoteClassification.Green, mateus: VoteClassification.Green,
       gabriel: VoteClassification.Green, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
     },
-    {name: 1}
+    {name: true}
 );
 const wagner = new Participant(
   ParticipantType.Mentee,
@@ -160,7 +160,7 @@ const wagner = new Participant(
       marcia: VoteClassification.Green, lucas: VoteClassification.Green, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Red,
       gabriel: VoteClassification.Yellow, luan: VoteClassification.Green, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
     },
-    {name: 1}
+    {name: true}
 );
  const natalia = new Participant(
    ParticipantType.Mentee,
@@ -170,7 +170,7 @@ const wagner = new Participant(
       marcia: VoteClassification.Green, lucas: VoteClassification.Green, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Red,
       gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
     },
-    {name: 1}
+    {name: true}
 );
  const pedro = new Participant(
    ParticipantType.Mentee,
@@ -180,7 +180,7 @@ const wagner = new Participant(
       marcia: VoteClassification.Green, lucas: VoteClassification.Green, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Red,
       gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
     },
-    {name: 1}
+    {name: true}
 );
  const giovana = new Participant(
    ParticipantType.Mentee,
@@ -200,7 +200,7 @@ const wagner = new Participant(
       marcia: VoteClassification.Green, lucas: VoteClassification.Green, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Red,
       gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
     },
-    {name: 1}
+    {name: true}
 );
 const athos = new Participant(
   ParticipantType.Mentee,
@@ -220,7 +220,7 @@ const felipe = new Participant(
       marcia: VoteClassification.Green, lucas: VoteClassification.Green, cassiano: VoteClassification.Green, mateus: VoteClassification.Yellow,
       gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Yellow, daniel: VoteClassification.Green
     },
-    {name: 1}
+    {name: true}
 );
 const henrique = new Participant(
   ParticipantType.Mentee,
@@ -230,7 +230,7 @@ const henrique = new Participant(
       marcia: VoteClassification.Green, lucas: VoteClassification.Yellow, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Green,
       gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
     },
-    {name: 1}
+    {name: true}
 );
 const joao = new Participant(
   ParticipantType.Mentee,
@@ -240,7 +240,7 @@ const joao = new Participant(
       marcia: VoteClassification.Yellow, lucas: VoteClassification.Red, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Yellow,
       gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Yellow, daniel: VoteClassification.Green
     },
-    {name: 1}
+    {name: true}
 );
 
 export const mentees: Participant[] = 

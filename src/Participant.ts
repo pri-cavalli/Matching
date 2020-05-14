@@ -6,7 +6,7 @@ export enum ParticipantType {
 }
 
 export interface WorkedWith {
-    [participantName: string]: number
+    [participantName: string]: boolean
 }
 
 export class Participant {
