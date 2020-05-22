@@ -1,8 +1,19 @@
-import { Matching, Pair } from "./HungarianAlgorithm";
+import { Matching, Pair, HungarianAlgorithm } from "./HungarianAlgorithm";
 import { Matrix } from "./Matrix";
 import _ from "lodash";
+import { Participant } from "./Participant";
+import { MatrixBuilder } from "./MatrixBuilder";
+
 export namespace AllOptimalMatchingFinder {
-    export function find(optimalMatching: Matching, afterHungarianMatrix: Matrix, originalMatrix: Matrix): Matching[] {        
+    export function find(mentors: Participant[], mentees: Participant[]): Matching[] {
+        const originalMatrix = MatrixBuilder.build(mentors, mentees);
+        const matrix = _.cloneDeep(originalMatrix);
+        const optimalMatchingFinder = new HungarianAlgorithm(matrix, mentors, mentees);
+        const optimalMatching = optimalMatchingFinder.findOptimalAssignments();
+        return findAllOptimalMatchings(optimalMatching, optimalMatchingFinder.getMatrix(), originalMatrix);
+    }
+
+    function findAllOptimalMatchings(optimalMatching: Matching, afterHungarianMatrix: Matrix, originalMatrix: Matrix): Matching[] {        
         const fixedPartialMatching = findFixedPairs(afterHungarianMatrix);
         if (afterHungarianMatrix.allMentees.length === 0) {
             return [optimalMatching];
@@ -30,42 +41,58 @@ export namespace AllOptimalMatchingFinder {
     function getFixedPairs(matrix: Matrix): Pair[] {
         const fixedPairs: Pair[] = [];
         matrix.allMentors.forEach(mentor => {
-            let count = 0;
-            let lastMentee = "";
-            matrix.allMentees.forEach(mentee => {
-                if (matrix.value[mentor][mentee] === 0) {
-                    count++;
-                    lastMentee = mentee;
-                }
-            });
-            if (count <= 1) {
-                fixedPairs.push({mentor, mentee: lastMentee});
+            const pair = getPairWhenMentorHasOnlyOnePossibleMentee(mentor, matrix);
+            if (pair) {
+                fixedPairs.push(pair);
             }
         });
         matrix.allMentees.forEach(mentee => {
             if (!fixedPairs.some(pair => mentee === pair.mentee)) {
-                let count = 0;
-                let lastMentor = "";
-                matrix.allMentors.forEach(mentor => {
-                    if (matrix.value[mentor][mentee] === 0) {
-                        count++;
-                        lastMentor = mentor;
-                    }
-                });
-                if (count <= 1) {
-                    fixedPairs.push({mentor: lastMentor, mentee});
+                const pair = getPairWhenMenteeHasOnlyOnePossibleMentor(mentee, matrix);
+                if (pair) {
+                    fixedPairs.push(pair);
                 }
             }
         });
         return fixedPairs;
     }
 
-    function buildAllOptimalMatchings(optimalMatching: Matching, partOfMatching: Matching, workingMatrix: Matrix, originalMatrix: Matrix): Matching[] {
+    function getPairWhenMentorHasOnlyOnePossibleMentee(mentor: string, matrix: Matrix): Pair | undefined {
+        let count = 0;
+        let optimalMentee = "";
+        matrix.allMentees.forEach(mentee => {
+            if (isThisPairOptimal(mentor, mentee, matrix)) {
+                count++;
+                optimalMentee = mentee;
+            }
+        });
+        if (count <= 1) {
+            return {mentor, mentee: optimalMentee};
+        }
+        return undefined;
+    }
+
+    function getPairWhenMenteeHasOnlyOnePossibleMentor(mentee: string, matrix: Matrix): Pair | undefined {
+        let count = 0;
+        let optimalMentor = "";
+        matrix.allMentors.forEach(mentor => {
+            if (isThisPairOptimal(mentor, mentee, matrix)) {
+                count++;
+                optimalMentor = mentor;
+            }
+        });
+        if (count <= 1) {
+            return {mentor: optimalMentor, mentee};
+        }
+        return undefined;
+    }
+
+    function buildAllOptimalMatchings(optimalMatching: Matching, fixedPartOfMatching: Matching, workingMatrix: Matrix, originalMatrix: Matrix): Matching[] {
         const optimalTotalValue = matchingTotal(optimalMatching, originalMatrix);
-        const otherPartOfMatchings = getFlexiblePairsCombination(workingMatrix);
+        const flexiblePartOfMatchings = getFlexiblePairsCombination(workingMatrix);
         const allMatchings: Matching[] = [];
-        otherPartOfMatchings.forEach(otherPart => {
-            const newMatching = otherPart.concat(partOfMatching);
+        flexiblePartOfMatchings.forEach(flexiblePart => {
+            const newMatching = fixedPartOfMatching.concat(flexiblePart);
             if (optimalTotalValue === matchingTotal(newMatching, originalMatrix)) {
                 allMatchings.push(newMatching);
             }
@@ -88,26 +115,36 @@ export namespace AllOptimalMatchingFinder {
         }
         for(let mentor of Object.keys(matrix.value)) {
             for(let mentee of Object.keys(matrix.value[mentor])) {
-                if (matrix.value[mentor][mentee] === 0) {
-                    const currentMatrix = _.cloneDeep(matrix);
-                    currentMatrix.removeMenteeAndMentor(mentee, mentor);
-                    let restOfMatching = getFlexiblePairsCombination(currentMatrix);
-                    if (restOfMatching.length === 0) {
-                        restOfMatching = [[{mentor, mentee}]];
-                    } else {
-                        restOfMatching = restOfMatching.map(possibleMatching => {
-                            possibleMatching.push({mentor, mentee});
-                            return possibleMatching.sort((a: Pair, b: Pair) => a.mentor > b.mentor ? 1 : -1);
-                        });
-                    }
+                if (isThisPairOptimal(mentor, mentee, matrix)) {
+                    const restOfMatching = findRestOfMatchingWithNewFixedPair(matrix, { mentor, mentee })
                     allPossibleRestOfMatching = allPossibleRestOfMatching.concat(restOfMatching);
                 }
             };
         };
 
-        allPossibleRestOfMatching = _.uniqBy(
-            allPossibleRestOfMatching.filter(a => matrix.size === a.length), (item: Matching) => JSON.stringify(item)
+        return _.uniqBy(
+            allPossibleRestOfMatching.filter(matching => matrix.size === matching.length),
+            (item: Matching) => JSON.stringify(item)
         );
-        return allPossibleRestOfMatching;
+    }
+
+    function isThisPairOptimal(mentor: string, mentee: string, matrix: Matrix): boolean {
+        return matrix.value[mentor][mentee] === 0;
+    }
+
+    function findRestOfMatchingWithNewFixedPair(matrix: Matrix, fixedPair: Pair): Matching[] {
+        const {mentor, mentee} = fixedPair;
+        const currentMatrix = _.cloneDeep(matrix);
+        currentMatrix.removeMenteeAndMentor(mentee, mentor);
+        let restOfMatching = getFlexiblePairsCombination(currentMatrix);
+        if (restOfMatching.length === 0) {
+            restOfMatching = [[fixedPair]];
+        } else {
+            restOfMatching = restOfMatching.map(possibleMatching => {
+                possibleMatching.push(fixedPair);
+                return possibleMatching.sort((a: Pair, b: Pair) => a.mentor > b.mentor ? 1 : -1);
+            });
+        }
+        return restOfMatching;
     }
 }
