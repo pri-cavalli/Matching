@@ -116,6 +116,7 @@ export namespace AllOptimalMatchingFinder {
         for(let mentor of Object.keys(matrix.value)) {
             for(let mentee of Object.keys(matrix.value[mentor])) {
                 if (isThisPairOptimal(mentor, mentee, matrix)) {
+                    matrix.value[mentor][mentee] = 1; // avoid this pair to be used on other flexible pairs combination, since now it will already find all the combinations that it appears
                     const restOfMatching = findRestOfMatchingWithNewFixedPair(matrix, { mentor, mentee })
                     allPossibleRestOfMatching = allPossibleRestOfMatching.concat(restOfMatching);
                 }
