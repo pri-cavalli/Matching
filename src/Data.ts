@@ -2,248 +2,248 @@ import { Participant, ParticipantType } from "./Participant";
 import { VoteClassification } from "./Vote";
 
 
-const luis = new Participant(
+const a1 = new Participant(
   ParticipantType.Mentor,
-    "luis",
+    "a1",
     new Date(2009, 12), 
-    { joice: VoteClassification.Green, nicolas: VoteClassification.Green, willian: VoteClassification.Yellow, wagner: VoteClassification.Yellow,
-      joao: VoteClassification.Yellow, henrique: VoteClassification.Red, felipe: VoteClassification.Red, athos: VoteClassification.Yellow, 
-      vinicius: VoteClassification.Green, giovana: VoteClassification.Red, pedro: VoteClassification.Yellow, natalia: VoteClassification.Green 
+    { t1: VoteClassification.Green, t2: VoteClassification.Green, t3: VoteClassification.Yellow, t4: VoteClassification.Yellow,
+      t12: VoteClassification.Yellow, t11: VoteClassification.Red, t10: VoteClassification.Red, t9: VoteClassification.Yellow, 
+      t8: VoteClassification.Green, t7: VoteClassification.Red, t6: VoteClassification.Yellow, t5: VoteClassification.Green 
     },
     {name: true}
 );
-const carol = new Participant(
+const a2 = new Participant(
   ParticipantType.Mentor,
-    "carol",
+    "a2",
     new Date(2010, 2),
-    { joice: VoteClassification.Green, nicolas: VoteClassification.Green, willian: VoteClassification.Yellow, wagner: VoteClassification.Red,
-      joao: VoteClassification.Green, henrique: VoteClassification.Yellow, felipe: VoteClassification.Yellow, athos: VoteClassification.Green, 
-      vinicius: VoteClassification.Green, giovana: VoteClassification.Yellow, pedro: VoteClassification.Green, natalia: VoteClassification.Yellow 
+    { t1: VoteClassification.Green, t2: VoteClassification.Green, t3: VoteClassification.Yellow, t4: VoteClassification.Red,
+      t12: VoteClassification.Green, t11: VoteClassification.Yellow, t10: VoteClassification.Yellow, t9: VoteClassification.Green, 
+      t8: VoteClassification.Green, t7: VoteClassification.Yellow, t6: VoteClassification.Green, t5: VoteClassification.Yellow 
     },
-    { joice: true }
+    { t1: true }
 );
-const priscila = new Participant(
+const a3 = new Participant(
   ParticipantType.Mentor,
-    "priscila",
+    "a3",
     new Date(2018, 4),
-    { joice: VoteClassification.Yellow, nicolas: VoteClassification.Green, willian: VoteClassification.Yellow, wagner: VoteClassification.Green,
-      joao: VoteClassification.Yellow, henrique: VoteClassification.Green, felipe: VoteClassification.Yellow, athos: VoteClassification.Green, 
-      vinicius: VoteClassification.Yellow, giovana: VoteClassification.Green, pedro: VoteClassification.Yellow, natalia: VoteClassification.Green 
+    { t1: VoteClassification.Yellow, t2: VoteClassification.Green, t3: VoteClassification.Yellow, t4: VoteClassification.Green,
+      t12: VoteClassification.Yellow, t11: VoteClassification.Green, t10: VoteClassification.Yellow, t9: VoteClassification.Green, 
+      t8: VoteClassification.Yellow, t7: VoteClassification.Green, t6: VoteClassification.Yellow, t5: VoteClassification.Green 
     },
     {name: true}
 );
-const maiara = new Participant(
+const a4 = new Participant(
   ParticipantType.Mentor,
-    "maiara",
+    "a4",
     new Date(2018, 4),
-    { joice: VoteClassification.Yellow, nicolas: VoteClassification.Green, willian: VoteClassification.Yellow, wagner: VoteClassification.Green,
-      joao: VoteClassification.Green, henrique: VoteClassification.Green, felipe: VoteClassification.Yellow, athos: VoteClassification.Red, 
-      vinicius: VoteClassification.Green, giovana: VoteClassification.Yellow, pedro: VoteClassification.Yellow, natalia: VoteClassification.Green
+    { t1: VoteClassification.Yellow, t2: VoteClassification.Green, t3: VoteClassification.Yellow, t4: VoteClassification.Green,
+      t12: VoteClassification.Green, t11: VoteClassification.Green, t10: VoteClassification.Yellow, t9: VoteClassification.Red, 
+      t8: VoteClassification.Green, t7: VoteClassification.Yellow, t6: VoteClassification.Yellow, t5: VoteClassification.Green
     },
     {name: true}
 );
-const mateus = new Participant(
+const a5 = new Participant(
   ParticipantType.Mentor,
-    "mateus",
+    "a5",
     new Date(2013, 12), 
-    { joice: VoteClassification.Yellow, nicolas: VoteClassification.Red, willian: VoteClassification.Green, wagner: VoteClassification.Red,
-      joao: VoteClassification.Green, henrique: VoteClassification.Red, felipe: VoteClassification.Yellow, athos: VoteClassification.Yellow, 
-      vinicius: VoteClassification.Green, giovana: VoteClassification.Yellow, pedro: VoteClassification.Yellow, natalia: VoteClassification.Green
+    { t1: VoteClassification.Yellow, t2: VoteClassification.Red, t3: VoteClassification.Green, t4: VoteClassification.Red,
+      t12: VoteClassification.Green, t11: VoteClassification.Red, t10: VoteClassification.Yellow, t9: VoteClassification.Yellow, 
+      t8: VoteClassification.Green, t7: VoteClassification.Yellow, t6: VoteClassification.Yellow, t5: VoteClassification.Green
     },
     {name: true}
 );
-const cassiano = new Participant(
+const a6 = new Participant(
   ParticipantType.Mentor,
-    "cassiano",
+    "a6",
     new Date(2015, 2),
-    { joice: VoteClassification.Green, nicolas: VoteClassification.Green, willian: VoteClassification.Yellow, wagner: VoteClassification.Red,
-      joao: VoteClassification.Red, henrique: VoteClassification.Red, felipe: VoteClassification.Red, athos: VoteClassification.Green, 
-       vinicius: VoteClassification.Yellow, giovana: VoteClassification.Yellow, pedro: VoteClassification.Green, natalia: VoteClassification.Green 
+    { t1: VoteClassification.Green, t2: VoteClassification.Green, t3: VoteClassification.Yellow, t4: VoteClassification.Red,
+      t12: VoteClassification.Red, t11: VoteClassification.Red, t10: VoteClassification.Red, t9: VoteClassification.Green, 
+       t8: VoteClassification.Yellow, t7: VoteClassification.Yellow, t6: VoteClassification.Green, t5: VoteClassification.Green 
     },
     {name: true}
 );
-const lucas = new Participant(
+const a7 = new Participant(
   ParticipantType.Mentor,
-    "lucas",
+    "a7",
     new Date(2018, 3),
-    { joice: VoteClassification.Yellow, nicolas: VoteClassification.Red, willian: VoteClassification.Yellow, wagner: VoteClassification.Red,
-      joao: VoteClassification.Green, henrique: VoteClassification.Yellow, felipe: VoteClassification.Yellow, athos: VoteClassification.Red, 
-      vinicius: VoteClassification.Yellow, giovana: VoteClassification.Yellow, pedro: VoteClassification.Green, natalia: VoteClassification.Green
+    { t1: VoteClassification.Yellow, t2: VoteClassification.Red, t3: VoteClassification.Yellow, t4: VoteClassification.Red,
+      t12: VoteClassification.Green, t11: VoteClassification.Yellow, t10: VoteClassification.Yellow, t9: VoteClassification.Red, 
+      t8: VoteClassification.Yellow, t7: VoteClassification.Yellow, t6: VoteClassification.Green, t5: VoteClassification.Green
     },
     {name: true}
 );
-const marcia = new Participant(
+const a8 = new Participant(
   ParticipantType.Mentor,
-     "marcia",
+     "a8",
      new Date(2007, 4),
-     { joice: VoteClassification.Yellow, nicolas: VoteClassification.Red, willian: VoteClassification.Yellow, wagner: VoteClassification.Green,
-      joao: VoteClassification.Red, henrique: VoteClassification.Yellow, felipe: VoteClassification.Green, athos: VoteClassification.Yellow, 
-       vinicius: VoteClassification.Yellow, giovana: VoteClassification.Green, pedro: VoteClassification.Green, natalia: VoteClassification.Red
+     { t1: VoteClassification.Yellow, t2: VoteClassification.Red, t3: VoteClassification.Yellow, t4: VoteClassification.Green,
+      t12: VoteClassification.Red, t11: VoteClassification.Yellow, t10: VoteClassification.Green, t9: VoteClassification.Yellow, 
+       t8: VoteClassification.Yellow, t7: VoteClassification.Green, t6: VoteClassification.Green, t5: VoteClassification.Red
     },
-    { joice: true}
+    { t1: true}
 );
- const guilherme = new Participant(
+ const a9 = new Participant(
     ParticipantType.Mentor,
-    "guilherme",
+    "a9",
     new Date(2007, 12), 
-    { joice: VoteClassification.Red, nicolas: VoteClassification.Red, willian: VoteClassification.Yellow, wagner: VoteClassification.Yellow,
-      joao: VoteClassification.Yellow, henrique: VoteClassification.Green, felipe: VoteClassification.Green, athos: VoteClassification.Yellow, 
-      vinicius: VoteClassification.Yellow, giovana: VoteClassification.Yellow, pedro: VoteClassification.Yellow, natalia: VoteClassification.Yellow 
+    { t1: VoteClassification.Red, t2: VoteClassification.Red, t3: VoteClassification.Yellow, t4: VoteClassification.Yellow,
+      t12: VoteClassification.Yellow, t11: VoteClassification.Green, t10: VoteClassification.Green, t9: VoteClassification.Yellow, 
+      t8: VoteClassification.Yellow, t7: VoteClassification.Yellow, t6: VoteClassification.Yellow, t5: VoteClassification.Yellow 
     },
     {name: true}
 );
- const luan = new Participant(
+ const a10 = new Participant(
    ParticipantType.Mentor,
-      "luan",
+      "a10",
       new Date(2015, 5),
-      { joice: VoteClassification.Yellow, nicolas: VoteClassification.Yellow, willian: VoteClassification.Yellow, wagner: VoteClassification.Yellow,
-       joao: VoteClassification.Yellow, henrique: VoteClassification.Green, felipe: VoteClassification.Yellow, athos: VoteClassification.Yellow, 
-       vinicius: VoteClassification.Yellow, giovana: VoteClassification.Yellow, pedro: VoteClassification.Red, natalia: VoteClassification.Red
+      { t1: VoteClassification.Yellow, t2: VoteClassification.Yellow, t3: VoteClassification.Yellow, t4: VoteClassification.Yellow,
+       t12: VoteClassification.Yellow, t11: VoteClassification.Green, t10: VoteClassification.Yellow, t9: VoteClassification.Yellow, 
+       t8: VoteClassification.Yellow, t7: VoteClassification.Yellow, t6: VoteClassification.Red, t5: VoteClassification.Red
      },
      {name: true}
  );
- const gabriel = new Participant(
+ const a11 = new Participant(
    ParticipantType.Mentor,
-      "gabriel",
+      "a11",
       new Date(2015, 1),
-      { joice: VoteClassification.Yellow, nicolas: VoteClassification.Green, willian: VoteClassification.Yellow, wagner: VoteClassification.Yellow,
-       joao: VoteClassification.Green, henrique: VoteClassification.Yellow, felipe: VoteClassification.Yellow, athos: VoteClassification.Green, 
-       vinicius: VoteClassification.Green, giovana: VoteClassification.Yellow, pedro: VoteClassification.Yellow, natalia: VoteClassification.Green
+      { t1: VoteClassification.Yellow, t2: VoteClassification.Green, t3: VoteClassification.Yellow, t4: VoteClassification.Yellow,
+       t12: VoteClassification.Green, t11: VoteClassification.Yellow, t10: VoteClassification.Yellow, t9: VoteClassification.Green, 
+       t8: VoteClassification.Green, t7: VoteClassification.Yellow, t6: VoteClassification.Yellow, t5: VoteClassification.Green
      },
      {name: true}
  );
- const daniel = new Participant(
+ const a12 = new Participant(
    ParticipantType.Mentor,
-      "daniel",
+      "a12",
       new Date(2017, 4),
-      { joice: VoteClassification.Yellow, nicolas: VoteClassification.Green, willian: VoteClassification.Yellow, wagner: VoteClassification.Yellow,
-       joao: VoteClassification.Yellow, henrique: VoteClassification.Green, felipe: VoteClassification.Yellow, athos: VoteClassification.Red, 
-       vinicius: VoteClassification.Green, giovana: VoteClassification.Yellow, pedro: VoteClassification.Yellow, natalia: VoteClassification.Green
+      { t1: VoteClassification.Yellow, t2: VoteClassification.Green, t3: VoteClassification.Yellow, t4: VoteClassification.Yellow,
+       t12: VoteClassification.Yellow, t11: VoteClassification.Green, t10: VoteClassification.Yellow, t9: VoteClassification.Red, 
+       t8: VoteClassification.Green, t7: VoteClassification.Yellow, t6: VoteClassification.Yellow, t5: VoteClassification.Green
      },
      {name: true}
  );
-export const joice = new Participant(
+export const t1 = new Participant(
   ParticipantType.Mentee,
-     "joice",
+     "t1",
      new Date(2018, 12),
-     { luis: VoteClassification.Green, carol: VoteClassification.Green, priscila: VoteClassification.Red, maiara: VoteClassification.Red,
-      marcia: VoteClassification.Yellow, lucas: VoteClassification.Red, cassiano: VoteClassification.Red, mateus: VoteClassification.Red,
-      gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Red
+     { a1: VoteClassification.Green, a2: VoteClassification.Green, a3: VoteClassification.Red, a4: VoteClassification.Red,
+      a8: VoteClassification.Yellow, a7: VoteClassification.Red, a6: VoteClassification.Red, a5: VoteClassification.Red,
+      a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Red, a12: VoteClassification.Red
     },
-     { carol: true, marcia: true }
+     { a2: true, a8: true }
 );
-const nicolas = new Participant(
+const t2 = new Participant(
   ParticipantType.Mentee,
-     "nicolas",
+     "t2",
      new Date(2018, 10),
-     { luis: VoteClassification.Green, carol: VoteClassification.Green, priscila: VoteClassification.Red, maiara: VoteClassification.Red,
-      marcia: VoteClassification.Yellow, lucas: VoteClassification.Red, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Red,
-      gabriel: VoteClassification.Yellow, luan: VoteClassification.Green, guilherme: VoteClassification.Red, daniel: VoteClassification.Yellow
+     { a1: VoteClassification.Green, a2: VoteClassification.Green, a3: VoteClassification.Red, a4: VoteClassification.Red,
+      a8: VoteClassification.Yellow, a7: VoteClassification.Red, a6: VoteClassification.Yellow, a5: VoteClassification.Red,
+      a11: VoteClassification.Yellow, a10: VoteClassification.Green, a9: VoteClassification.Red, a12: VoteClassification.Yellow
     },
     {name: true}
 );
-const willian = new Participant(
+const t3 = new Participant(
   ParticipantType.Mentee,
-     "willian",
+     "t3",
      new Date(2019, 5),
-     { luis: VoteClassification.Green, carol: VoteClassification.Green, priscila: VoteClassification.Green, maiara: VoteClassification.Yellow,
-      marcia: VoteClassification.Green, lucas: VoteClassification.Yellow, cassiano: VoteClassification.Green, mateus: VoteClassification.Green,
-      gabriel: VoteClassification.Green, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
+     { a1: VoteClassification.Green, a2: VoteClassification.Green, a3: VoteClassification.Green, a4: VoteClassification.Yellow,
+      a8: VoteClassification.Green, a7: VoteClassification.Yellow, a6: VoteClassification.Green, a5: VoteClassification.Green,
+      a11: VoteClassification.Green, a10: VoteClassification.Yellow, a9: VoteClassification.Red, a12: VoteClassification.Green
     },
     {name: true}
 );
-const wagner = new Participant(
+const t4 = new Participant(
   ParticipantType.Mentee,
-     "wagner",
+     "t4",
      new Date(2019, 5),
-     { luis: VoteClassification.Green, carol: VoteClassification.Green, priscila: VoteClassification.Green, maiara: VoteClassification.Green,
-      marcia: VoteClassification.Green, lucas: VoteClassification.Green, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Red,
-      gabriel: VoteClassification.Yellow, luan: VoteClassification.Green, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
+     { a1: VoteClassification.Green, a2: VoteClassification.Green, a3: VoteClassification.Green, a4: VoteClassification.Green,
+      a8: VoteClassification.Green, a7: VoteClassification.Green, a6: VoteClassification.Yellow, a5: VoteClassification.Red,
+      a11: VoteClassification.Yellow, a10: VoteClassification.Green, a9: VoteClassification.Red, a12: VoteClassification.Green
     },
     {name: true}
 );
- const natalia = new Participant(
+ const t5 = new Participant(
    ParticipantType.Mentee,
-      "natalia",
+      "t5",
       new Date(2020, 1),
-      { luis: VoteClassification.Green, carol: VoteClassification.Green, priscila: VoteClassification.Red, maiara: VoteClassification.Red,
-      marcia: VoteClassification.Green, lucas: VoteClassification.Green, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Red,
-      gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
+      { a1: VoteClassification.Green, a2: VoteClassification.Green, a3: VoteClassification.Red, a4: VoteClassification.Red,
+      a8: VoteClassification.Green, a7: VoteClassification.Green, a6: VoteClassification.Yellow, a5: VoteClassification.Red,
+      a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Red, a12: VoteClassification.Green
     },
     {name: true}
 );
- const pedro = new Participant(
+ const t6 = new Participant(
    ParticipantType.Mentee,
-      "pedro",
+      "t6",
       new Date(2019, 10),
-      { luis: VoteClassification.Green, carol: VoteClassification.Green, priscila: VoteClassification.Red, maiara: VoteClassification.Red,
-      marcia: VoteClassification.Green, lucas: VoteClassification.Green, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Red,
-      gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
+      { a1: VoteClassification.Green, a2: VoteClassification.Green, a3: VoteClassification.Red, a4: VoteClassification.Red,
+      a8: VoteClassification.Green, a7: VoteClassification.Green, a6: VoteClassification.Yellow, a5: VoteClassification.Red,
+      a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Red, a12: VoteClassification.Green
     },
     {name: true}
 );
- const giovana = new Participant(
+ const t7 = new Participant(
    ParticipantType.Mentee,
-      "giovana",
+      "t7",
       new Date(2020, 2),
-      { luis: VoteClassification.Green, carol: VoteClassification.Green, priscila: VoteClassification.Green, maiara: VoteClassification.Yellow,
-      marcia: VoteClassification.Green, lucas: VoteClassification.Green, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Red,
-      gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
+      { a1: VoteClassification.Green, a2: VoteClassification.Green, a3: VoteClassification.Green, a4: VoteClassification.Yellow,
+      a8: VoteClassification.Green, a7: VoteClassification.Green, a6: VoteClassification.Yellow, a5: VoteClassification.Red,
+      a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Red, a12: VoteClassification.Green
      },
      {}
 );
- const vinicius = new Participant(
+ const t8 = new Participant(
    ParticipantType.Mentee,
-      "vinicius",
+      "t8",
       new Date(2019, 2),
-      { luis: VoteClassification.Green, carol: VoteClassification.Green, priscila: VoteClassification.Green, maiara: VoteClassification.Green,
-      marcia: VoteClassification.Green, lucas: VoteClassification.Green, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Red,
-      gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
+      { a1: VoteClassification.Green, a2: VoteClassification.Green, a3: VoteClassification.Green, a4: VoteClassification.Green,
+      a8: VoteClassification.Green, a7: VoteClassification.Green, a6: VoteClassification.Yellow, a5: VoteClassification.Red,
+      a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Red, a12: VoteClassification.Green
     },
     {name: true}
 );
-const athos = new Participant(
+const t9 = new Participant(
   ParticipantType.Mentee,
-     "athos",
+     "t9",
      new Date(2020, 3),
-     { luis: VoteClassification.Yellow, carol: VoteClassification.Red, priscila: VoteClassification.Yellow, maiara: VoteClassification.Yellow,
-      marcia: VoteClassification.Red, lucas: VoteClassification.Green, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Green,
-      gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Yellow, daniel: VoteClassification.Green
+     { a1: VoteClassification.Yellow, a2: VoteClassification.Red, a3: VoteClassification.Yellow, a4: VoteClassification.Yellow,
+      a8: VoteClassification.Red, a7: VoteClassification.Green, a6: VoteClassification.Yellow, a5: VoteClassification.Green,
+      a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Yellow, a12: VoteClassification.Green
     },
      {}
 );
-const felipe = new Participant(
+const t10 = new Participant(
   ParticipantType.Mentee,
-     "felipe",
+     "t10",
      new Date(2019, 3),
-     { luis: VoteClassification.Yellow, carol: VoteClassification.Green, priscila: VoteClassification.Green, maiara: VoteClassification.Yellow,
-      marcia: VoteClassification.Green, lucas: VoteClassification.Green, cassiano: VoteClassification.Green, mateus: VoteClassification.Yellow,
-      gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Yellow, daniel: VoteClassification.Green
+     { a1: VoteClassification.Yellow, a2: VoteClassification.Green, a3: VoteClassification.Green, a4: VoteClassification.Yellow,
+      a8: VoteClassification.Green, a7: VoteClassification.Green, a6: VoteClassification.Green, a5: VoteClassification.Yellow,
+      a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Yellow, a12: VoteClassification.Green
     },
     {name: true}
 );
-const henrique = new Participant(
+const t11 = new Participant(
   ParticipantType.Mentee,
-     "henrique",
+     "t11",
      new Date(2020, 1),
-     { luis: VoteClassification.Green, carol: VoteClassification.Yellow, priscila: VoteClassification.Yellow, maiara: VoteClassification.Yellow,
-      marcia: VoteClassification.Green, lucas: VoteClassification.Yellow, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Green,
-      gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Red, daniel: VoteClassification.Green
+     { a1: VoteClassification.Green, a2: VoteClassification.Yellow, a3: VoteClassification.Yellow, a4: VoteClassification.Yellow,
+      a8: VoteClassification.Green, a7: VoteClassification.Yellow, a6: VoteClassification.Yellow, a5: VoteClassification.Green,
+      a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Red, a12: VoteClassification.Green
     },
     {name: true}
 );
-const joao = new Participant(
+const t12 = new Participant(
   ParticipantType.Mentee,
-     "joao",
+     "t12",
      new Date(2020, 1),
-     { luis: VoteClassification.Green, carol: VoteClassification.Green, priscila: VoteClassification.Yellow, maiara: VoteClassification.Green,
-      marcia: VoteClassification.Yellow, lucas: VoteClassification.Red, cassiano: VoteClassification.Yellow, mateus: VoteClassification.Yellow,
-      gabriel: VoteClassification.Yellow, luan: VoteClassification.Yellow, guilherme: VoteClassification.Yellow, daniel: VoteClassification.Green
+     { a1: VoteClassification.Green, a2: VoteClassification.Green, a3: VoteClassification.Yellow, a4: VoteClassification.Green,
+      a8: VoteClassification.Yellow, a7: VoteClassification.Red, a6: VoteClassification.Yellow, a5: VoteClassification.Yellow,
+      a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Yellow, a12: VoteClassification.Green
     },
     {name: true}
 );
 
 export const mentees: Participant[] = 
-  [ joice, nicolas, willian, wagner, joao, henrique, felipe, athos, vinicius, giovana, pedro, natalia ];
+  [ t1, t2, t3, t4, t12, t11, t10, t9, t8, t7, t6, t5 ];
 export const mentors: Participant[] = 
-  [ luis, carol, maiara, priscila, marcia, lucas, cassiano, mateus, gabriel, luan, guilherme, daniel ];
+  [ a1, a2, a4, a3, a8, a7, a6, a5, a11, a10, a9, a12 ];
