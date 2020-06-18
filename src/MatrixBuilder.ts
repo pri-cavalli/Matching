@@ -12,8 +12,8 @@ const VoteWeight = {
 const WorkedWithWeight = -BoundaryValue;
 
 const OpinionWeight = {
-    Minor: 8,
-    High: 12
+    Minor: 9,
+    High: 11
 }
 
 const BonusWeight = {
@@ -39,7 +39,7 @@ export namespace MatrixBuilder {
         if (alreadyWorkedTogether(mentor, mentee)) {
             return WorkedWithWeight;
         }
-        const { weightOfMenteeOpinion, weightOfMentorOpinion, bonus} = calculateOptionWeightsAndBonus(mentor, mentee);
+        const { weightOfMenteeOpinion, weightOfMentorOpinion, bonus} = calculateOptionWeightsAndBonus(mentee);
         return Math.ceil((VoteWeight[mentor.votes[mentee.name]] * weightOfMentorOpinion +
                VoteWeight[mentee.votes[mentor.name]] * weightOfMenteeOpinion) * 
                bonus);
@@ -50,7 +50,7 @@ export namespace MatrixBuilder {
     }
 
     function calculateOptionWeightsAndBonus(
-        mentor: Participant, mentee: Participant
+        mentee: Participant
     ): {weightOfMentorOpinion: number, weightOfMenteeOpinion: number, bonus: number} {
 
         let weightOfMenteeOpinion = OpinionWeight.High;
@@ -58,10 +58,6 @@ export namespace MatrixBuilder {
         let bonus = BonusWeight.Default;
         if (mentee.isOldForAMentee()) {
             bonus = BonusWeight.HighPriority;
-            if (mentor.isExperiencedForAMentor()) {
-                weightOfMentorOpinion = OpinionWeight.High;
-                weightOfMenteeOpinion = OpinionWeight.Minor;
-            }
         }
         return { weightOfMenteeOpinion, weightOfMentorOpinion, bonus};
     }
