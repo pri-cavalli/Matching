@@ -1,6 +1,5 @@
 import { Matrix } from "./Matrix";
 import { Participant } from "./Participant";
-import _ from "lodash";
 
 export interface Pair {
     mentor: string,

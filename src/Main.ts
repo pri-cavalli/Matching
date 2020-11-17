@@ -1,6 +1,5 @@
 import { mentors, mentees } from "./Data";
 import { Display } from "./MatchingDisplayer";
-import _ from "lodash";
 import { AllOptimalMatchingFinder } from "./AllOptimalMatchingFinder";
 
 export function main(): void {

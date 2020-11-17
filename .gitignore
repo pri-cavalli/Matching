@@ -2,4 +2,4 @@ dist
 node_modules
 package-lock.json
 yarn-error.log
-src/RealisticData.ts
+src/realisticData

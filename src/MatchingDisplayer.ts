@@ -1,4 +1,3 @@
-import * as _ from "lodash";
 import { VoteClassification, VotesNumber } from "./Vote";
 import { Participant } from "./Participant";
 import { Matching } from "./HungarianAlgorithm";
