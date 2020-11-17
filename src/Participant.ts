@@ -6,13 +6,13 @@ export enum ParticipantType {
 }
 
 export interface WorkedWith {
-    [participantName: string]: boolean
+    [participantId: string]: boolean
 }
 
 export class Participant {
     constructor(
     public type: ParticipantType,
-    public name: string,
+    public id: string,
     public startDate: Date,
     public votes: Votes,
     public workedWith: WorkedWith

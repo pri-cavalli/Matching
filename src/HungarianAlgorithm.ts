@@ -27,10 +27,10 @@ enum MarkValue {
 export const MaxNumber = 999999999;
 
 export class HungarianAlgorithm {
-    private mentorNames: string[];
-    private menteeNames: string[];
-    private coveredMentees: {[menteeName: string]: boolean} = {};
-    private coveredMentors: {[mentorName: string]: boolean} = {};
+    private mentorIds: string[];
+    private menteeIds: string[];
+    private coveredMentees: {[menteeId: string]: boolean} = {};
+    private coveredMentors: {[mentorId: string]: boolean} = {};
     private marks = new Matrix(0);
     private matching: Matching = [];
 
@@ -46,10 +46,10 @@ export class HungarianAlgorithm {
     }
 
     constructor(private matrix: Matrix, mentors: Participant[], mentees: Participant[]) {
-        this.menteeNames = mentees.map(m => m.name);
-        this.mentorNames = mentors.map(m => m.name);
-        this.mentorNames.forEach(mentor => {
-            this.menteeNames.forEach(mentee => {
+        this.menteeIds = mentees.map(m => m.id);
+        this.mentorIds = mentors.map(m => m.id);
+        this.mentorIds.forEach(mentor => {
+            this.menteeIds.forEach(mentee => {
                 this.matrix.value[mentor][mentee] = MaxNumber - this.matrix.value[mentor][mentee];
             });
         });
@@ -68,12 +68,12 @@ export class HungarianAlgorithm {
     }
 
     private step1(): GoTo {
-        this.mentorNames.forEach(mentor => {
+        this.mentorIds.forEach(mentor => {
             let min = MaxNumber;
-            this.menteeNames.forEach(mentee => {
+            this.menteeIds.forEach(mentee => {
                 min = Math.min(min, this.matrix.value[mentor][mentee])
             });
-            this.menteeNames.forEach(mentee => {
+            this.menteeIds.forEach(mentee => {
                 this.matrix.value[mentor][mentee] -= min;
             });
         });
@@ -81,9 +81,9 @@ export class HungarianAlgorithm {
     }
 
     private step2(): GoTo {
-        this.mentorNames.forEach(mentor => {
+        this.mentorIds.forEach(mentor => {
             if (!this.coveredMentors[mentor]) {
-                this.menteeNames.every(mentee => {
+                this.menteeIds.every(mentee => {
                     if (!this.coveredMentees[mentee] && this.matrix.value[mentor][mentee] === 0) {
                         this.marks.addCell(mentor, mentee, MarkValue.Star);
                         this.coveredMentors[mentor] = true;
@@ -105,7 +105,7 @@ export class HungarianAlgorithm {
 
     private step3(): GoTo {
         let count = 0;
-        this.menteeNames.forEach(mentee => {
+        this.menteeIds.forEach(mentee => {
             if (this.manteeHasStar(mentee)) {
                 this.coveredMentees[mentee] = true;
                 count++;
@@ -116,7 +116,7 @@ export class HungarianAlgorithm {
     }
 
     private manteeHasStar(mentee: string): boolean {
-        for(let mentor of this.mentorNames) {
+        for(let mentor of this.mentorIds) {
             if (this.marks.value[mentor] &&
                 this.marks.value[mentor][mentee] === MarkValue.Star) {
                 return true;
@@ -145,9 +145,9 @@ export class HungarianAlgorithm {
     }
 
     private findZero(): { mentor: string, mentee: string} | undefined {
-        for(let mentor of this.mentorNames) {
+        for(let mentor of this.mentorIds) {
             if (!this.coveredMentors[mentor]) {
-                for(let mentee of this.menteeNames) {
+                for(let mentee of this.menteeIds) {
                     if (!this.coveredMentees[mentee] && this.matrix.value[mentor][mentee] === 0) {
                         return {mentee, mentor};
                     }
@@ -158,7 +158,7 @@ export class HungarianAlgorithm {
     }
 
     private findMentorThatHasMarkWithMentee(mentee: string, markValue: MarkValue): string | undefined {
-        for (let mentor of this.mentorNames) {
+        for (let mentor of this.mentorIds) {
             if (this.marks.value[mentor] && this.marks.value[mentor][mentee] === markValue) {
                 return mentor;
             }
@@ -168,7 +168,7 @@ export class HungarianAlgorithm {
 
     private findMenteeThatHasMarkWithMentor(mentor: string, markValue: MarkValue): string | undefined {
         if (!this.marks.value[mentor]) return undefined;
-        for (let mentee of this.menteeNames) {
+        for (let mentee of this.menteeIds) {
             if (this.marks.value[mentor][mentee] === markValue) {
                 return mentee;
             }
@@ -210,8 +210,8 @@ export class HungarianAlgorithm {
     }
 
     private clearPrimesInMarks(): void {
-        this.mentorNames.forEach(mentor => {
-            this.menteeNames.forEach(mentee => {
+        this.mentorIds.forEach(mentor => {
+            this.menteeIds.forEach(mentee => {
                 if(this.marks.value[mentor] && this.marks.value[mentor][mentee] === MarkValue.Prime) {
                     this.marks.value[mentor][mentee] = MarkValue.None;
                 }
@@ -222,8 +222,8 @@ export class HungarianAlgorithm {
 
     private step6(): GoTo {
         const min = this.findMinUncovered();
-        this.mentorNames.forEach(mentor => {
-            this.menteeNames.forEach(mentee => {
+        this.mentorIds.forEach(mentor => {
+            this.menteeIds.forEach(mentee => {
                 if (this.coveredMentors[mentor]) {
                     this.matrix.value[mentor][mentee] += min;
                 }
@@ -237,9 +237,9 @@ export class HungarianAlgorithm {
 
     private findMinUncovered(): number {
         let min = MaxNumber;
-        this.mentorNames.forEach(mentor => {
+        this.mentorIds.forEach(mentor => {
             if (!this.coveredMentors[mentor]) {
-                this.menteeNames.forEach(mentee => {
+                this.menteeIds.forEach(mentee => {
                     if(!this.coveredMentees[mentee]) {
                         min =  Math.min(min, this.matrix.value[mentor][mentee]);
                     }
@@ -251,8 +251,8 @@ export class HungarianAlgorithm {
 
     private lastStep(): GoTo {        
         this.matching = [];
-        this.mentorNames.forEach(mentor => {
-            this.menteeNames.forEach(mentee => {
+        this.mentorIds.forEach(mentor => {
+            this.menteeIds.forEach(mentee => {
                 if(this.marks.value[mentor] && this.marks.value[mentor][mentee] === MarkValue.Star) {
                     this.matching.push({mentor, mentee});
                 }

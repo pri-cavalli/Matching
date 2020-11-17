@@ -40,13 +40,13 @@ export namespace MatrixBuilder {
             return WorkedWithWeight;
         }
         const { weightOfMenteeOpinion, weightOfMentorOpinion, bonus} = calculateOptionWeightsAndBonus(mentee);
-        return Math.ceil((VoteWeight[mentor.votes[mentee.name]] * weightOfMentorOpinion +
-               VoteWeight[mentee.votes[mentor.name]] * weightOfMenteeOpinion) * 
+        return Math.ceil((VoteWeight[mentor.votes[mentee.id]] * weightOfMentorOpinion +
+               VoteWeight[mentee.votes[mentor.id]] * weightOfMenteeOpinion) * 
                bonus);
     }
 
     function alreadyWorkedTogether(mentor: Participant, mentee: Participant): boolean {
-        return mentee.workedWith[mentor.name] || mentor.workedWith[mentee.name];
+        return mentee.workedWith[mentor.id] || mentor.workedWith[mentee.id];
     }
 
     function calculateOptionWeightsAndBonus(

@@ -10,7 +10,7 @@ const a1 = new Participant(
       t12: VoteClassification.Yellow, t11: VoteClassification.Red, t10: VoteClassification.Red, t9: VoteClassification.Yellow, 
       t8: VoteClassification.Green, t7: VoteClassification.Red, t6: VoteClassification.Yellow, t5: VoteClassification.Green 
     },
-    {name: true}
+    { }
 );
 const a2 = new Participant(
   ParticipantType.Mentor,
@@ -30,7 +30,7 @@ const a3 = new Participant(
       t12: VoteClassification.Yellow, t11: VoteClassification.Green, t10: VoteClassification.Yellow, t9: VoteClassification.Green, 
       t8: VoteClassification.Yellow, t7: VoteClassification.Green, t6: VoteClassification.Yellow, t5: VoteClassification.Green 
     },
-    {name: true}
+    { }
 );
 const a4 = new Participant(
   ParticipantType.Mentor,
@@ -40,7 +40,7 @@ const a4 = new Participant(
       t12: VoteClassification.Green, t11: VoteClassification.Green, t10: VoteClassification.Yellow, t9: VoteClassification.Red, 
       t8: VoteClassification.Green, t7: VoteClassification.Yellow, t6: VoteClassification.Yellow, t5: VoteClassification.Green
     },
-    {name: true}
+    { }
 );
 const a5 = new Participant(
   ParticipantType.Mentor,
@@ -50,7 +50,7 @@ const a5 = new Participant(
       t12: VoteClassification.Green, t11: VoteClassification.Red, t10: VoteClassification.Yellow, t9: VoteClassification.Yellow, 
       t8: VoteClassification.Green, t7: VoteClassification.Yellow, t6: VoteClassification.Yellow, t5: VoteClassification.Green
     },
-    {name: true}
+    { }
 );
 const a6 = new Participant(
   ParticipantType.Mentor,
@@ -60,7 +60,7 @@ const a6 = new Participant(
       t12: VoteClassification.Red, t11: VoteClassification.Red, t10: VoteClassification.Red, t9: VoteClassification.Green, 
        t8: VoteClassification.Yellow, t7: VoteClassification.Yellow, t6: VoteClassification.Green, t5: VoteClassification.Green 
     },
-    {name: true}
+    { }
 );
 const a7 = new Participant(
   ParticipantType.Mentor,
@@ -70,7 +70,7 @@ const a7 = new Participant(
       t12: VoteClassification.Green, t11: VoteClassification.Yellow, t10: VoteClassification.Yellow, t9: VoteClassification.Red, 
       t8: VoteClassification.Yellow, t7: VoteClassification.Yellow, t6: VoteClassification.Green, t5: VoteClassification.Green
     },
-    {name: true}
+    { }
 );
 const a8 = new Participant(
   ParticipantType.Mentor,
@@ -90,7 +90,7 @@ const a8 = new Participant(
       t12: VoteClassification.Yellow, t11: VoteClassification.Green, t10: VoteClassification.Green, t9: VoteClassification.Yellow, 
       t8: VoteClassification.Yellow, t7: VoteClassification.Yellow, t6: VoteClassification.Yellow, t5: VoteClassification.Yellow 
     },
-    {name: true}
+    { }
 );
  const a10 = new Participant(
    ParticipantType.Mentor,
@@ -100,7 +100,7 @@ const a8 = new Participant(
        t12: VoteClassification.Yellow, t11: VoteClassification.Green, t10: VoteClassification.Yellow, t9: VoteClassification.Yellow, 
        t8: VoteClassification.Yellow, t7: VoteClassification.Yellow, t6: VoteClassification.Red, t5: VoteClassification.Red
      },
-     {name: true}
+     { }
  );
  const a11 = new Participant(
    ParticipantType.Mentor,
@@ -110,7 +110,7 @@ const a8 = new Participant(
        t12: VoteClassification.Green, t11: VoteClassification.Yellow, t10: VoteClassification.Yellow, t9: VoteClassification.Green, 
        t8: VoteClassification.Green, t7: VoteClassification.Yellow, t6: VoteClassification.Yellow, t5: VoteClassification.Green
      },
-     {name: true}
+     { }
  );
  const a12 = new Participant(
    ParticipantType.Mentor,
@@ -120,7 +120,7 @@ const a8 = new Participant(
        t12: VoteClassification.Yellow, t11: VoteClassification.Green, t10: VoteClassification.Yellow, t9: VoteClassification.Red, 
        t8: VoteClassification.Green, t7: VoteClassification.Yellow, t6: VoteClassification.Yellow, t5: VoteClassification.Green
      },
-     {name: true}
+     { }
  );
 export const t1 = new Participant(
   ParticipantType.Mentee,
@@ -140,7 +140,7 @@ const t2 = new Participant(
       a8: VoteClassification.Yellow, a7: VoteClassification.Red, a6: VoteClassification.Yellow, a5: VoteClassification.Red,
       a11: VoteClassification.Yellow, a10: VoteClassification.Green, a9: VoteClassification.Red, a12: VoteClassification.Yellow
     },
-    {name: true}
+    { }
 );
 const t3 = new Participant(
   ParticipantType.Mentee,
@@ -150,7 +150,7 @@ const t3 = new Participant(
       a8: VoteClassification.Green, a7: VoteClassification.Yellow, a6: VoteClassification.Green, a5: VoteClassification.Green,
       a11: VoteClassification.Green, a10: VoteClassification.Yellow, a9: VoteClassification.Red, a12: VoteClassification.Green
     },
-    {name: true}
+    { }
 );
 const t4 = new Participant(
   ParticipantType.Mentee,
@@ -160,7 +160,7 @@ const t4 = new Participant(
       a8: VoteClassification.Green, a7: VoteClassification.Green, a6: VoteClassification.Yellow, a5: VoteClassification.Red,
       a11: VoteClassification.Yellow, a10: VoteClassification.Green, a9: VoteClassification.Red, a12: VoteClassification.Green
     },
-    {name: true}
+    { }
 );
  const t5 = new Participant(
    ParticipantType.Mentee,
@@ -170,7 +170,7 @@ const t4 = new Participant(
       a8: VoteClassification.Green, a7: VoteClassification.Green, a6: VoteClassification.Yellow, a5: VoteClassification.Red,
       a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Red, a12: VoteClassification.Green
     },
-    {name: true}
+    { }
 );
  const t6 = new Participant(
    ParticipantType.Mentee,
@@ -180,7 +180,7 @@ const t4 = new Participant(
       a8: VoteClassification.Green, a7: VoteClassification.Green, a6: VoteClassification.Yellow, a5: VoteClassification.Red,
       a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Red, a12: VoteClassification.Green
     },
-    {name: true}
+    { }
 );
  const t7 = new Participant(
    ParticipantType.Mentee,
@@ -200,7 +200,7 @@ const t4 = new Participant(
       a8: VoteClassification.Green, a7: VoteClassification.Green, a6: VoteClassification.Yellow, a5: VoteClassification.Red,
       a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Red, a12: VoteClassification.Green
     },
-    {name: true}
+    { }
 );
 const t9 = new Participant(
   ParticipantType.Mentee,
@@ -220,7 +220,7 @@ const t10 = new Participant(
       a8: VoteClassification.Green, a7: VoteClassification.Green, a6: VoteClassification.Green, a5: VoteClassification.Yellow,
       a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Yellow, a12: VoteClassification.Green
     },
-    {name: true}
+    { }
 );
 const t11 = new Participant(
   ParticipantType.Mentee,
@@ -230,7 +230,7 @@ const t11 = new Participant(
       a8: VoteClassification.Green, a7: VoteClassification.Yellow, a6: VoteClassification.Yellow, a5: VoteClassification.Green,
       a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Red, a12: VoteClassification.Green
     },
-    {name: true}
+    { }
 );
 const t12 = new Participant(
   ParticipantType.Mentee,
@@ -240,7 +240,7 @@ const t12 = new Participant(
       a8: VoteClassification.Yellow, a7: VoteClassification.Red, a6: VoteClassification.Yellow, a5: VoteClassification.Yellow,
       a11: VoteClassification.Yellow, a10: VoteClassification.Yellow, a9: VoteClassification.Yellow, a12: VoteClassification.Green
     },
-    {name: true}
+    { }
 );
 
 export const mentees: Participant[] = 

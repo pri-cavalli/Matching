@@ -3,7 +3,7 @@ import { isNumber } from "util";
 import _ from "lodash";
 
 interface MatrixValue {
-    [mentorName: string]: { [menteeName: string]: number}
+    [mentorId: string]: { [menteeId: string]: number}
 }
 
 export class Matrix {
@@ -14,13 +14,13 @@ export class Matrix {
     constructor(public size: number) { }
 
     public addCell(mentor: Participant | string, mentee: Participant | string, weight: number): void {
-        const mentorName = mentor instanceof Participant ? mentor.name : mentor;
-        const menteeName = mentee instanceof Participant ? mentee.name : mentee;
-        if (!this.value[mentorName]) this.value[mentorName] = {};
-        this.value[mentorName][menteeName] = weight;
-        this.allMentees.push(menteeName)
+        const mentorId = mentor instanceof Participant ? mentor.id : mentor;
+        const menteeId = mentee instanceof Participant ? mentee.id : mentee;
+        if (!this.value[mentorId]) this.value[mentorId] = {};
+        this.value[mentorId][menteeId] = weight;
+        this.allMentees.push(menteeId)
         this.allMentees = _.uniq(this.allMentees);
-        this.allMentors.push(mentorName)
+        this.allMentors.push(mentorId)
         this.allMentors = _.uniq(this.allMentors);
     }
 
