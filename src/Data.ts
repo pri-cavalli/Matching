@@ -1,7 +1,7 @@
 import { Participant, ParticipantType } from "./Participant";
 import { VoteClassification } from "./Vote";
 
-
+/* istanbul ignore file: no logic */
 const a1 = new Participant(
   ParticipantType.Mentor,
     "a1",

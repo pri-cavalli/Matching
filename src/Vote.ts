@@ -1,3 +1,4 @@
+/* istanbul ignore file: no logic */
 export interface Votes {
     [participant: string]: VoteClassification
 }

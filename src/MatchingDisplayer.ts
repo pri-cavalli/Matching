@@ -5,7 +5,7 @@ interface Pair {
     mentor: Participant,
     mentee: Participant
 }
-
+/* istanbul ignore file: it's only useful for see results in console, the real application won't use it */
 export namespace Display {
     export function matchings(matchings: Matching[], mentors: Participant[], mentees: Participant[]): void {
         matchings.forEach((m, i) => matching(m, mentors, mentees, i))
