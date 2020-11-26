@@ -25,7 +25,7 @@ export class Participant {
     public isOldForAMentee(): boolean {
         if (this.type === ParticipantType.Mentor) throw new Error("You shouldn't use this condition for a mentor");
         const thirteenMonths = 365 + 30;
-        return dateDiffInDays(new Date(), this.startDate) > thirteenMonths;
+        return dateDiffInDays(new Date(), this.startDate) >= thirteenMonths;
     }
 }
 
