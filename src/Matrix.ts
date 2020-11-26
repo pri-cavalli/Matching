@@ -1,5 +1,4 @@
 import { Participant } from "./Participant";
-import { isNumber } from "util";
 import _ from "lodash";
 
 interface MatrixValue {
@@ -28,7 +27,7 @@ export class Matrix {
         delete this.value[mentorToBeRemoved];
         this.allMentors = this.allMentors.filter(m => m !== mentorToBeRemoved);
         Object.keys(this.value).forEach(mentor => {
-            if (isNumber(this.value[mentor][menteeToBeRemoved]) ) {
+            if (typeof this.value[mentor][menteeToBeRemoved] === "number") {
                 delete this.value[mentor][menteeToBeRemoved];
             }
         });
