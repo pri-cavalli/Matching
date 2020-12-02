@@ -18,9 +18,6 @@ export namespace AllOptimalMatchingFinder {
         if (afterHungarianMatrix.allMentees.length === 0) {
             return [optimalMatching];
         }
-        console.log("Flexible participants:");
-        console.log(afterHungarianMatrix.allMentees);
-        console.log(afterHungarianMatrix.allMentors);
         return buildAllOptimalMatchings(optimalMatching, fixedPartialMatching, afterHungarianMatrix, originalMatrix);
     }
 
